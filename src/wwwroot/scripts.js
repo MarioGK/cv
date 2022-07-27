@@ -1,3 +1,3 @@
-﻿export function invokeWindowPrint() {
+﻿function invokeWindowPrint() {
     window.print();
 }
