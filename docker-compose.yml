@@ -6,7 +6,7 @@ services:
     image: containrrr/watchtower
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /home/ubuntu/config.json:/config.json
+      - /home/ubuntu/.docker/config.json:/config.json
     command: --interval 60
   cv:
     restart: always
