@@ -10,4 +10,4 @@ RUN dotnet publish -c Release -o /app/publish --nologo
 FROM caddy:latest AS final
 WORKDIR /app
 COPY --from=publish /app/publish/wwwroot .
-COPY Caddyfile /etc/caddy/Caddyfile
+ENTRYPOINT ["caddy", "run"]
