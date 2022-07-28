@@ -18,7 +18,7 @@ jobs:
     - name: Install WASM Tools
       run: dotnet workload install wasm-tools
     - name: Build WASM
-      run: dotnet publish ./src -c Release -o /app/publish
+      run: dotnet publish ./src -c Release -o ./publish
     - uses: azure/login@v1
       with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
@@ -26,7 +26,7 @@ jobs:
       uses: azure/CLI@v1
       with:
         inlineScript: |
-            az storage blob upload-batch --account-name mariogktop --auth-mode key -d '$web' -s /app/publish/wwwroot
+            az storage blob upload-batch --account-name mariogktop --auth-mode key -d '$web' -s ./publish/wwwroot
     - name: Purge CDN endpoint
       uses: azure/CLI@v1
       with:
