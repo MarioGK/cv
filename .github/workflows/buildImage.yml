@@ -18,7 +18,7 @@ jobs:
     - name: Install WASM Tools
       run: dotnet workload install wasm-tools
     - name: Build WASM
-      run: dotnet publish /src -c Release -o /app/publish
+      run: dotnet publish ./src -c Release -o /app/publish
     - uses: azure/login@v1
       with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
