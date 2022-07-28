@@ -26,7 +26,7 @@ jobs:
       uses: azure/CLI@v1
       with:
         inlineScript: |
-            az storage blob upload-batch --account-name mariogktop --auth-mode key -d '$web' -s ./publish/wwwroot
+            az storage blob upload-batch --account-name mariogktop --auth-mode key -d '$web' -s ./publish/wwwroot --overwrite
     - name: Purge CDN endpoint
       uses: azure/CLI@v1
       with:
