@@ -2,6 +2,6 @@
 
 public class SkillsData
 {
-    public string Name       { get; set; }
-    public int    Proffiency { get; set; }
+    public string Name        { get; set; } = null!;
+    public int    Proficiency { get; set; } = 0;
 }

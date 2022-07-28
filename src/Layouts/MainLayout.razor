@@ -1,55 +1,62 @@
-﻿@using System.Globalization
-@inherits LayoutComponentBase
+﻿@inherits LayoutComponentBase
 @inject IJSRuntime Js
+@inject LocalizationService LocalizationService
 
 <MudThemeProvider IsDarkMode="_darkMode" />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
-<MudLayout>
-    <MudAppBar Elevation="2">
-        <MudButton Color="Color.Inherit" Href="/">
-            Curriculum
-        </MudButton>
-        <MudButton Color="Color.Inherit" Href="/Resume">
-            Resume
-        </MudButton>
-        <MudButton Color="Color.Inherit" Href="/Blog">
-            Blog
-        </MudButton>
-        <MudButton Color="Color.Inherit" Href="/Contacts">
-            Contacts
-        </MudButton>
+@if (_loaded)
+{
+    <MudLayout>
+        <MudAppBar Elevation="2">
+            <MudButton Color="Color.Inherit" Href="/">
+                @LocalizationService.Get("curriculum")
+            </MudButton>
+            <MudButton Color="Color.Inherit" Href="/Resume">
+                @LocalizationService.Get("resume")
+            </MudButton>
+            <MudButton Color="Color.Inherit" Href="/Blog">
+                @LocalizationService.Get("blog")
+            </MudButton>
+            <MudButton Color="Color.Inherit" Href="/Contacts">
+                @LocalizationService.Get("contacts")
+            </MudButton>
         
-        <MudSpacer />
+            <MudSpacer />
         
-        <MudIconButton Class="pa-0 mt-2" OnClick="() => SetLanguage(_ptBr)">
-            <CountryFlag Country="Country.BR" Size="FlagSize.Normal"/>
-        </MudIconButton>
+            <MudIconButton Class="pa-0 mt-2" OnClick='async () => await LocalizationService.ChangeLanguage("portugues")'>
+                <CountryFlag Country="Country.BR" Size="FlagSize.Normal"/>
+            </MudIconButton>
         
-        <MudIconButton Class="pa-0 mt-2"  OnClick="() => SetLanguage(_enUs)">
-            <CountryFlag Country="Country.US" Size="FlagSize.Normal"/>
-        </MudIconButton>
-        <MudDivider Vertical="true" FlexItem="true" Class="my-2"/>
-        <MudIconButton Icon="@(_darkMode ? Icons.Filled.LightMode : Icons.Filled.DarkMode)" OnClick="ToggleMode" Color="Color.Inherit" />
-        <MudIconButton Icon="@Icons.Filled.Print" Color="Color.Inherit" OnClick="Print" />
-    </MudAppBar>
-    <MudMainContent>
-        <MudContainer MaxWidth="MaxWidth.Large" Class="d-flex">
-            <MudPaper Elevation="6" Class="pa-4 mx-auto my-4" Style="width: 95vw">
-                <div class="printable">
-                    @Body
-                </div>
-            </MudPaper>
-        </MudContainer>
-    </MudMainContent>
-</MudLayout>
+            <MudIconButton Class="pa-0 mt-2"  OnClick="async () => await LocalizationService.ChangeLanguage()">
+                <CountryFlag Country="Country.US" Size="FlagSize.Normal"/>
+            </MudIconButton>
+            <MudDivider Vertical="true" FlexItem="true" Class="my-2"/>
+            <MudIconButton Icon="@(_darkMode ? Icons.Filled.LightMode : Icons.Filled.DarkMode)" OnClick="ToggleMode" Color="Color.Inherit" />
+            <MudIconButton Icon="@Icons.Filled.Print" Color="Color.Inherit" OnClick="Print" />
+        </MudAppBar>
+        <MudMainContent>
+            <MudContainer MaxWidth="MaxWidth.Large" Class="d-flex">
+                <MudPaper Elevation="6" Class="pa-4 mx-auto my-4" Style="width: 95vw">
+                    <div class="printable">
+                        @Body
+                    </div>
+                </MudPaper>
+            </MudContainer>
+        </MudMainContent>
+    </MudLayout>
+}
+else
+{
+    <div style="width: 100vw; height: 100vh; background: #32333d" class="d-flex align-center align-content-center justify-center">
+        <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+    </div>
+}
 
 @code {
-    private readonly CultureInfo _ptBr = new("pt-BR");
-    private readonly CultureInfo _enUs = new("en-US");
-    
     bool _darkMode = true;
+    bool _loaded = false;
 
     void ToggleMode()
     {
@@ -61,8 +68,13 @@
         await Js.InvokeVoidAsync("invokeWindowPrint");
     }
 
-    void SetLanguage(CultureInfo info)
+    protected override async Task OnInitializedAsync()
     {
-
+        LocalizationService.LanguageChanged += async () =>
+        {
+            await InvokeAsync(StateHasChanged);
+            _loaded = true;
+        };
+        await LocalizationService.ChangeLanguage();
     }
 }
