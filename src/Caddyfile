@@ -1,4 +1,0 @@
-﻿mariogk.top {
-    try_files {path} /index.html
-    file_server
-}

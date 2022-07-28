@@ -10,16 +10,29 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
-    - name: Login to DockerHub
-      uses: docker/login-action@v2
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
       with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - name: Build and push
-      uses: docker/build-push-action@v3
+        dotnet-version: 6.0.x
+    - name: Install WASM Tools
+      run: dotnet workload install wasm-tools
+    - name: Build WASM
+      run: dotnet publish -c Release -o /app/publish
+    - uses: azure/login@v1
       with:
-        context: "{{defaultContext}}:src"
-        push: true
-        tags: mariogk/cv:latest
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - name: Upload to blob storage
+      uses: azure/CLI@v1
+      with:
+        inlineScript: |
+            az storage blob upload-batch --account-name mariogktop --auth-mode key -d '$web' -s /app/publish/wwwroot
+    - name: Purge CDN endpoint
+      uses: azure/CLI@v1
+      with:
+        inlineScript: |
+           az cdn endpoint purge --content-paths  "/*" --profile-name "CDN_PROFILE_NAME" --name "CDN_ENDPOINT" --resource-group "RESOURCE_GROUP"
+    - name: logout
+      run: |
+            az logout
+      if: always()
