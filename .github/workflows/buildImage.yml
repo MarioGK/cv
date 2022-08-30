@@ -21,7 +21,7 @@ jobs:
 
       # Build the website
     - name: Build WASM
-      run: dotnet publish ./src/cv -c Release -o ./publish
+      run: dotnet publish .\src\cv -c Release -o .\publish
       
       # Generate all the PDFs
     - name: Generate PDF
