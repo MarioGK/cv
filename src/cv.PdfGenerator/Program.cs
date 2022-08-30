@@ -15,7 +15,7 @@ var languages = Directory.EnumerateFiles($"{dataDir}languages", " *.json")
 
 var skills      = JsonSerializer.Deserialize<List<SkillsData>>(File.ReadAllText($"{dataDir}skills.json"));
 
-foreach(var language in languages)
+foreach (var language in languages)
 {
     var document = Document.Create(container =>
     {
@@ -25,18 +25,16 @@ foreach(var language in languages)
             page.Margin(2, Unit.Centimetre);
             page.PageColor(Colors.White);
             page.DefaultTextStyle(x => x.FontSize(20));
-        
+
             page.Header()
                 .Text(language.Language)
                 .SemiBold().FontSize(36).FontColor(Colors.Blue.Medium);
-        
+
             page.Content()
                 .PaddingVertical(1, Unit.Centimetre)
                 .Column(x =>
                  {
                      x.Spacing(20);
-                
-                     x.Item().Text(Placeholders.LoremIpsum());
                      x.Item().Image(Placeholders.Image(200, 100));
                  });
         });
