@@ -7,7 +7,7 @@ public class LocalizationService
 {
     private readonly HttpClient                       _httpClient;
     public           Dictionary<string, LanguageData> LanguageDatas        { get; set; }
-    public           LanguageData?                    SelectedLanguageData { get; set; }
+    public           LanguageData                    SelectedLanguageData { get; set; }
     public           List<SkillsData>?                SkillsData           { get; set; }
 
     public List<string> AvailableLanguages = new()

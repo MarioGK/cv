@@ -1,6 +1,8 @@
-﻿@inherits LayoutComponentBase
+﻿@using Blazored.LocalStorage
+@inherits LayoutComponentBase
 @inject IJSRuntime Js
 @inject LocalizationService LocalizationService
+@inject ILocalStorageService LocalStorageService
 
 <MudThemeProvider IsDarkMode="_darkMode" />
 <MudDialogProvider />
@@ -37,8 +39,8 @@
             <MudIconButton Icon="@Icons.Filled.Print" Color="Color.Inherit" OnClick="Print" />
         </MudAppBar>
         <MudMainContent>
-            <MudContainer MaxWidth="MaxWidth.Large" Class="d-flex">
-                <MudPaper Elevation="6" Class="pa-4 mx-auto my-4" Style="width: 95vw">
+            <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge" Class="d-flex">
+                <MudPaper Elevation="6" Class="mx-auto my-4" Style="width: 100vw">
                     <div class="printable">
                         @Body
                     </div>
@@ -49,18 +51,17 @@
 }
 else
 {
-    <div style="width: 100vw; height: 100vh; background: #32333d" class="d-flex align-center align-content-center justify-center">
-        <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
-    </div>
+    <Loading/>
 }
 
 @code {
     bool _darkMode = true;
     bool _loaded = false;
 
-    void ToggleMode()
+    async Task ToggleMode()
     {
         _darkMode = !_darkMode;
+        await LocalStorageService.SetItemAsync("darkMode", _darkMode);
     }
     
     async Task Print()
@@ -72,9 +73,25 @@ else
     {
         LocalizationService.LanguageChanged += async () =>
         {
+            await LocalStorageService.SetItemAsync("language", LocalizationService.SelectedLanguageData.Language);
             await InvokeAsync(StateHasChanged);
             _loaded = true;
         };
-        await LocalizationService.ChangeLanguage();
+        
+        if(await LocalStorageService.ContainKeyAsync("darkMode"))
+        {
+            _darkMode = await LocalStorageService.GetItemAsync<bool>("darkMode");
+        }
+        
+        if(await LocalStorageService.ContainKeyAsync("language"))
+        {
+            await LocalizationService.ChangeLanguage(await LocalStorageService.GetItemAsync<string>("language"));
+        }
+        else
+        {
+            await LocalizationService.ChangeLanguage();
+        }
+        
+        _loaded = true;
     }
 }

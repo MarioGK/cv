@@ -7,4 +7,6 @@ public class ExperienceData
     public string   Description { get; set; } = null!;
     public DateTime StartDate   { get; set; } = default!;
     public DateTime EndDate     { get; set; } = default!;
+    
+    public string Title => $"{Company} - {Position}";
 }

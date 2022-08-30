@@ -1,0 +1,22 @@
+﻿<MudPaper Class="mb-4" Elevation="2" Style="outline: #594ae2ff solid 2px;">
+    <div class="d-flex pl-2 justify-space-between" style="background: #594ae2ff">
+        <h2 class="my-auto">@Title</h2>
+        <MudSwitch @bind-Checked="Show" Class="notPrintable ma-0" Color="Color.Default"/>
+    </div>
+    @if (Show)
+    {
+        @ChildContent
+    }
+</MudPaper>
+
+@code
+{
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public bool Show { get; set; } = true;
+
+    [Parameter, EditorRequired]
+    public string Title { get; set; } = null!;
+}

@@ -1,8 +1,4 @@
-﻿function invokeWindowPrint() {
-    window.print();
-}
-
-function invokeStart()
+﻿function invokeStart()
 {
     Blazor.start();
 }

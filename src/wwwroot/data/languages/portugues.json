@@ -1,10 +1,10 @@
 ﻿{
   "Language": "Portugues",
   "Translations": {
-    "contacts": "Contatos",
-    "curriculum": "Curriculo",
-    "resume": "Resumo",
-    "blog": "Blog"
+    "Contacts": "Contatos",
+    "Curriculum": "Curriculo",
+    "Resume": "Resumo",
+    "Blog": "Blog"
   },
   "Experiences": [
     {
