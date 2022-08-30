@@ -5,13 +5,15 @@ using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using QuestPDF.Previewer;
 
-const string pdfDir  = @"publish/wwwroot/pdfs/";
-const string dataDir = @"src/cv/wwwroot/data/";
 
-var languages = Directory.EnumerateFiles($"{dataDir}languages", " *.json")
-                           .Select(File.ReadAllText)
-                           .Select(json => JsonSerializer.Deserialize<LanguageData>(json)!)
-                           .ToList();
+var pdfDir      = $"{Directory.GetCurrentDirectory()}/publish/wwwroot/pdfs/";
+var dataDir     = $"{Directory.GetCurrentDirectory()}/src/cv/wwwroot/data/";
+var languageDir = $"{dataDir}languages";
+
+var languages = Directory.EnumerateFiles(languageDir, "*.json")
+                         .Select(File.ReadAllText)
+                         .Select(json => JsonSerializer.Deserialize<LanguageData>(json)!)
+                         .ToList();
 
 var skills      = JsonSerializer.Deserialize<List<SkillsData>>(File.ReadAllText($"{dataDir}skills.json"));
 
@@ -39,13 +41,9 @@ foreach (var language in languages)
                  });
         });
     });
-
-    #if RELEASE
+    
+    //document.ShowInPreviewer();
+    
     Directory.CreateDirectory(pdfDir);
     document.GeneratePdf($"{pdfDir}{language.Language.ToLower()}.pdf");
-    #endif
-
-    #if DEBUG
-    //document.ShowInPreviewer();
-    #endif
 }
