@@ -18,8 +18,15 @@ jobs:
         include-prerelease: true
     - name: Install WASM Tools
       run: dotnet workload install wasm-tools
+
+      # Build the website
     - name: Build WASM
-      run: dotnet publish ./src -c Release -o ./publish
+      run: dotnet publish ./src/cv -c Release -o ./publish
+      
+      # Generate all the PDFs
+    - name: Generate PDF
+      run: dotnet run --project .\src\cv.PdfGenerator\cv.PdfGenerator.csproj --configuration Release
+      
     - uses: azure/login@v1
       with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
