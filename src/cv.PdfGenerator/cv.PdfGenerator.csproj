@@ -5,9 +5,13 @@
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <PublishSingleFile>true</PublishSingleFile>
+        <SelfContained>true</SelfContained>
+        <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="HarfBuzzSharp.NativeAssets.Linux" Version="2.8.2.1" />
       <PackageReference Include="QuestPDF" Version="2022.8.2" />
       <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="2.88.1" />
     </ItemGroup>

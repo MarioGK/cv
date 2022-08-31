@@ -19,13 +19,13 @@ jobs:
     - name: Install WASM Tools
       run: dotnet workload install wasm-tools
 
-      # Publish the app
-    - name: Publish
-      run: dotnet publish ./src -c Release -o ./publish
+      # Build the website
+    - name: Build WASM
+      run: dotnet publish ./src/cv -c Release -o ./publish
       
       # Generate all the PDFs
     - name: Generate PDF
-      run: chmod +x ./publish/cv.PdfGenerator && ./publish/cv.PdfGenerator
+      run: dotnet run --project ./src/cv.PdfGenerator/cv.PdfGenerator.csproj --configuration Release
 
     - name: Login Azure
       uses: azure/login@v1
