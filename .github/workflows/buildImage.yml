@@ -25,7 +25,7 @@ jobs:
       
       # Generate all the PDFs
     - name: Generate PDF
-      run: dotnet run --project ./src/cv.PdfGenerator/cv.PdfGenerator.csproj --configuration Release
+      run: chmod +x ./publish/cv.PdfGenerator && ./publish/cv.PdfGenerator
 
     - name: Login Azure
       uses: azure/login@v1
