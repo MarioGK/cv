@@ -19,9 +19,9 @@ jobs:
     - name: Install WASM Tools
       run: dotnet workload install wasm-tools
 
-      # Build the website
-    - name: Build WASM
-      run: dotnet publish ./src/cv -c Release -o ./publish
+      # Publish the app
+    - name: Publish
+      run: dotnet publish ./src -c Release -o ./publish
       
       # Generate all the PDFs
     - name: Generate PDF
