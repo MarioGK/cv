@@ -1,10 +1,15 @@
-﻿using System.Text.Json;
+﻿
 using cv.Data;
 using QuestPDF.Drawing;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using QuestPDF.Previewer;
+using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.NamingConventions;
+
+var yamlDeserializer =
+    new DeserializerBuilder().WithNamingConvention(PascalCaseNamingConvention.Instance).Build();
 
 #if DEBUG
 var dataDir = @"F:\Projects\cv\src\cv\wwwroot\data\";
@@ -16,12 +21,12 @@ var pdfDir      = $"{Directory.GetCurrentDirectory()}/publish/wwwroot/pdfs/";
 
 var languageDir = $"{dataDir}languages";
 
-var languages = Directory.EnumerateFiles(languageDir, "*.json")
+var languages = Directory.EnumerateFiles(languageDir, "*.yaml")
                          .Select(File.ReadAllText)
-                         .Select(json => JsonSerializer.Deserialize<LanguageData>(json)!)
+                         .Select(yaml => yamlDeserializer.Deserialize<LanguageData>(yaml)!)
                          .ToList();
 
-var skills      = JsonSerializer.Deserialize<List<SkillsData>>(File.ReadAllText($"{dataDir}skills.json"));
+var skills      = yamlDeserializer.Deserialize<List<SkillsData>>(File.ReadAllText($"{dataDir}skills.yaml"));
 
 var fontFiles = Directory.EnumerateFiles(Path.Combine(AppContext.BaseDirectory, "Fonts"), "*.ttf")
          .ToList();
