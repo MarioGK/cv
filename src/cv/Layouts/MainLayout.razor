@@ -1,8 +1,8 @@
 ﻿@using Blazored.LocalStorage
 @inherits LayoutComponentBase
-@inject IJSRuntime Js
-@inject LocalizationService LocalizationService
-@inject ILocalStorageService LocalStorageService
+@inject LocalizationService Localization
+@inject ILocalStorageService LocalStorage
+@inject IJSRuntime JsRuntime;
 
 <MudThemeProvider IsDarkMode="_darkMode" />
 <MudDialogProvider />
@@ -13,25 +13,25 @@
     <MudLayout>
         <MudAppBar Elevation="2">
             <MudButton Color="Color.Inherit" Href="/">
-                @LocalizationService.Get("curriculum")
+                @Localization.Get("curriculum")
             </MudButton>
             <MudButton Color="Color.Inherit" Href="/Resume">
-                @LocalizationService.Get("resume")
+                @Localization.Get("resume")
             </MudButton>
             <MudButton Color="Color.Inherit" Href="/Blog">
-                @LocalizationService.Get("blog")
+                @Localization.Get("blog")
             </MudButton>
             <MudButton Color="Color.Inherit" Href="/Contacts">
-                @LocalizationService.Get("contacts")
+                @Localization.Get("contacts")
             </MudButton>
         
             <MudSpacer />
         
-            <MudIconButton Class="pa-0 mt-2" OnClick='async () => await LocalizationService.ChangeLanguage("portugues")'>
+            <MudIconButton Class="pa-0 mt-2" OnClick='async () => await Localization.ChangeLanguage("portugues")'>
                 <CountryFlag Country="Country.BR" Size="FlagSize.Normal"/>
             </MudIconButton>
         
-            <MudIconButton Class="pa-0 mt-2"  OnClick="async () => await LocalizationService.ChangeLanguage()">
+            <MudIconButton Class="pa-0 mt-2"  OnClick="async () => await Localization.ChangeLanguage()">
                 <CountryFlag Country="Country.US" Size="FlagSize.Normal"/>
             </MudIconButton>
             <MudDivider Vertical="true" FlexItem="true" Class="my-2"/>
@@ -61,35 +61,42 @@ else
     async Task ToggleMode()
     {
         _darkMode = !_darkMode;
-        await LocalStorageService.SetItemAsync("darkMode", _darkMode);
+        await LocalStorage.SetItemAsync("darkMode", _darkMode);
     }
     
     async Task Print()
     {
-        await Js.InvokeVoidAsync("invokeWindowPrint");
+        try
+        {
+            await JsRuntime.InvokeAsync<object>("open", $"https://cv.mariogk.top/pdfs/{Localization.SelectedLanguageData.Language.ToLower()}.pdf", "_blank");
+        }
+        catch (Exception)
+        {
+            //Ignore errors if any
+        }
     }
 
     protected override async Task OnInitializedAsync()
     {
-        LocalizationService.LanguageChanged += async () =>
+        Localization.LanguageChanged += async () =>
         {
-            await LocalStorageService.SetItemAsync("language", LocalizationService.SelectedLanguageData.Language);
+            await LocalStorage.SetItemAsync("language", Localization.SelectedLanguageData.Language);
             await InvokeAsync(StateHasChanged);
             _loaded = true;
         };
         
-        if(await LocalStorageService.ContainKeyAsync("darkMode"))
+        if(await LocalStorage.ContainKeyAsync("darkMode"))
         {
-            _darkMode = await LocalStorageService.GetItemAsync<bool>("darkMode");
+            _darkMode = await LocalStorage.GetItemAsync<bool>("darkMode");
         }
         
-        if(await LocalStorageService.ContainKeyAsync("language"))
+        if(await LocalStorage.ContainKeyAsync("language"))
         {
-            await LocalizationService.ChangeLanguage(await LocalStorageService.GetItemAsync<string>("language"));
+            await Localization.ChangeLanguage(await LocalStorage.GetItemAsync<string>("language"));
         }
         else
         {
-            await LocalizationService.ChangeLanguage();
+            await Localization.ChangeLanguage();
         }
         
         _loaded = true;

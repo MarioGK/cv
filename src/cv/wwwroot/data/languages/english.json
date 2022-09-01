@@ -6,27 +6,28 @@
     "resume": "Resume",
     "blog": "Blog"
   },
+  "Introduction": " My name is Mario Gabriell Karaziaki Belchior, i am a full stack developer with over 6 years of experience in the field.\n I have worked with several technologies and i am always looking for new challenges.\n I love to learn new things related to computers, development and electronics.",
   "Experiences": [
     {
       "Company": "Google",
       "Position": "Software Engineer",
       "StartDate": "2022-07-28T05:12:13.853+00:00",
       "EndDate": "2022-07-28T05:12:13.853+00:00",
-      "Description": "Google is a company that provides products and services to individuals, businesses, and governments. The products and services include the Google Search, Google Maps, Google+ and Google Hangouts. Google was founded in 1998 by Larry Page and Sergey Brin while they were Ph.D. students at Stanford University. Together, they own about 14 percent of Google's stock. Together, we've built a search engine for the world's information, shopping, and entertainment industries. We're looking to grow our business into something truly global, and we're committed to building the best products and services for our customers."
+      "Description": "  Google is a company that provides products and services to individuals, businesses, and governments. The products and services include the Google Search, Google Maps, Google+ and Google Hangouts. Google was founded in 1998 by Larry Page and Sergey Brin while they were Ph.D. students at Stanford University. Together, they own about 14 percent of Google's stock. Together, we've built a search engine for the world's information, shopping, and entertainment industries. We're looking to grow our business into something truly global, and we're committed to building the best products and services for our customers."
     },
     {
       "Company": "Facebook",
       "Position": "Software Engineer",
       "StartDate": "2022-07-28T05:12:13.853+00:00",
       "EndDate": "2022-07-28T05:12:13.853+00:00",
-      "Description": "Facebook is an American online social media and social networking service based in Menlo Park, California. It was created by Mark Zuckerberg, his son, and roommates roommates, and raised by three college roommates. The Facebook name comes from a colloquial expression meaning \"Face with bookmarks\"."
+      "Description": "  Facebook is an American online social media and social networking service based in Menlo Park, California. It was created by Mark Zuckerberg, his son, and roommates roommates, and raised by three college roommates. The Facebook name comes from a colloquial expression meaning \"Face with bookmarks\"."
     },
     {
       "Company": "LinkedIn",
       "Position": "Software Engineer",
       "StartDate": "2022-07-28T05:12:13.853+00:00",
       "EndDate": "2022-07-28T05:12:13.853+00:00",
-      "Description": "LinkedIn is a company that provides online job-search and job-posting services. It was founded in 2002 by Jeff Busser and his father, and is headquartered in Palo Alto, California."
+      "Description": "  LinkedIn is a company that provides online job-search and job-posting services. It was founded in 2002 by Jeff Busser and his father, and is headquartered in Palo Alto, California."
     }
   ]
 }
