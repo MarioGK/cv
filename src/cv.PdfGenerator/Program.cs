@@ -23,7 +23,7 @@ var languages = Directory.EnumerateFiles(languageDir, "*.json")
 
 var skills      = JsonSerializer.Deserialize<List<SkillsData>>(File.ReadAllText($"{dataDir}skills.json"));
 
-var fontFiles = Directory.EnumerateFiles("Fonts", "*.ttf")
+var fontFiles = Directory.EnumerateFiles(Path.Combine(AppContext.BaseDirectory, "Fonts"), "*.ttf")
          .ToList();
 fontFiles.ForEach(font => FontManager.RegisterFont(File.OpenRead(font)));
 
