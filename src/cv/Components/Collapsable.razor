@@ -1,12 +1,21 @@
-﻿<MudPaper Class="mb-4" Elevation="2" Style="outline: #594ae2ff solid 2px;">
-    <div class="d-flex pl-2 justify-space-between" style="background: #594ae2ff">
-        <h2 class="my-auto">@Title</h2>
-        <MudSwitch @bind-Checked="Show" Class="notPrintable ma-0" Color="Color.Default"/>
-    </div>
-    @if (Show)
-    {
-        @ChildContent
-    }
+﻿<MudPaper Class="@Class" Elevation="2" Style="outline: #594ae2ff solid 2px; border-radius: 10px">
+    <MudExpansionPanel Dense="true" IsInitiallyExpanded="true">
+        <TitleContent>
+            <div class="d-flex">
+                @if (Icon != null)
+                {
+                    <MudIcon Icon="@Icon" class="mr-3 my-auto" Size="Size.Large" Style="color:#ecebf7;"/>
+                }
+                <MudText Style="font-weight: bold;font-size: 1.4rem;color:#ecebf7;">
+                    @Title
+                </MudText>
+            </div>
+        </TitleContent>
+        <ChildContent>
+            @ChildContent
+        </ChildContent>
+        
+    </MudExpansionPanel>
 </MudPaper>
 
 @code
@@ -20,4 +29,10 @@
     [Parameter]
     [EditorRequired]
     public string Title { get; set; } = null!;
+
+    [Parameter]
+    public string? Class { get; set; }
+    
+    [Parameter]
+    public string? Icon { get; set; }
 }

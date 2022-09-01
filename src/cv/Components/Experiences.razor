@@ -2,7 +2,7 @@
 
 @foreach (var exp in Localization.SelectedLanguageData.Experiences)
 {
-    <Collapsable Title="@exp.Title">
+    <Collapsable Class="mb-4" Title="@exp.Title">
         <MudText Class="pa-2" Typo="Typo.body1">
             @exp.Description
         </MudText>

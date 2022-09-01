@@ -1,9 +1,9 @@
 ﻿@inject LocalizationService Localization;
 
-<MudText>
-    @Localization.SelectedLanguageData.Introduction
-</MudText>
-
-@code {
-
-}
+<div class="px-4 pt-4 pb-2">
+    <Collapsable Title="Introduction" Icon="@Icons.Filled.Person">
+        <MudText Class="pa-2">
+            @Localization.SelectedLanguageData.Introduction
+        </MudText>
+    </Collapsable>
+</div>
