@@ -1,16 +1,14 @@
 ﻿@inject LocalizationService Localization;
 
 <div class="mx-4 my-4 px-4 pt-4 rounded-lg" style="background: #594ae2ff; color: white">
-    <MudGrid Spacing="2">
-        <MudItem Class="">
-            <MudImage Src="imgs/pic.jpg" Alt="Profile Picture" Width="100" Class="rounded-lg"/>
-        </MudItem>
-        <MudItem xs="8">
-            <MudText Style="white-space: pre-line">
-                @Localization.SelectedLanguageData.Introduction
-            </MudText>
-        </MudItem>
-        <MudItem>
+    <div class="d-flex flex-grow-1 gap-4 pb-4">
+        <MudImage Src="imgs/pic.jpg" Alt="Profile Picture" Width="100" Style="max-width: 100px; max-height:120px" Class="rounded-lg "/>
+
+        <MudText Style="white-space: pre-line">
+            @Localization.SelectedLanguageData.Introduction
+        </MudText>
+
+        <div>
             <MudText Class="d-flex">
                 <MudIcon Class="mr-2" Icon="@Icons.Custom.Brands.GitHub"/>
                 <a href="https://github.com/MarioGK" style="color: white" target="_blank">Github</a>
@@ -31,8 +29,8 @@
                 <MudIcon Class="mr-2" Icon="@Icons.Filled.Whatsapp"/>
                 <a href="https://api.whatsapp.com/send?phone=5544999758367&text=Oi, Mario" style="color: white" target="_blank">WhatsApp</a>
             </MudText>
-        </MudItem>
-    </MudGrid>
+        </div>
+    </div>
 </div>
 
 @code {
@@ -42,4 +40,5 @@
         Localization.LanguageChanged += async () => { await InvokeAsync(StateHasChanged); };
         return Task.CompletedTask;
     }
+
 }

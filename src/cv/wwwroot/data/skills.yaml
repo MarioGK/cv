@@ -5,8 +5,12 @@
   Level: 9
 - Name: Blazor
   Level: 8
+- Name: AWS
+  Level: 7
 - Name: SQL
   Level: 7
+- Name: Azure
+  Level: 6
 - Name: TypeScript
   Level: 6
 - Name: JavaScript

@@ -3,7 +3,7 @@
 @foreach (var exp in Localization.SelectedLanguageData.Experiences)
 {
     <Collapsable Class="mb-4" Title="@exp.Title">
-        <MudText Class="pa-2" Typo="Typo.body1" >
+        <MudText Class="pa-2" Typo="Typo.body1">
             @exp.Description
         </MudText>
     </Collapsable>
@@ -16,4 +16,5 @@
         Localization.LanguageChanged += async () => { await InvokeAsync(StateHasChanged); };
         return Task.CompletedTask;
     }
+
 }
