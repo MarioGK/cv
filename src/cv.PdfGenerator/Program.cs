@@ -1,13 +1,19 @@
 ﻿using System.Text.Json;
 using cv.Data;
+using QuestPDF.Drawing;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using QuestPDF.Previewer;
 
-
-var pdfDir      = $"{Directory.GetCurrentDirectory()}/publish/wwwroot/pdfs/";
+#if DEBUG
+var dataDir = @"F:\Projects\cv\src\cv\wwwroot\data\";
+var pdfDir  = "pdfs\\";
+#else
 var dataDir     = $"{Directory.GetCurrentDirectory()}/src/cv/wwwroot/data/";
+var pdfDir      = $"{Directory.GetCurrentDirectory()}/publish/wwwroot/pdfs/";
+#endif
+
 var languageDir = $"{dataDir}languages";
 
 var languages = Directory.EnumerateFiles(languageDir, "*.json")
@@ -17,33 +23,55 @@ var languages = Directory.EnumerateFiles(languageDir, "*.json")
 
 var skills      = JsonSerializer.Deserialize<List<SkillsData>>(File.ReadAllText($"{dataDir}skills.json"));
 
+var fontFiles = Directory.EnumerateFiles("Fonts", "*.ttf")
+         .ToList();
+fontFiles.ForEach(font => FontManager.RegisterFont(File.OpenRead(font)));
+
 foreach (var language in languages)
 {
+    Console.WriteLine($"Generating PDF for {language.Language}...");
     var document = Document.Create(container =>
     {
         container.Page(page =>
         {
             page.Size(PageSizes.A4);
-            page.Margin(2, Unit.Centimetre);
+            page.Margin(1, Unit.Centimetre);
             page.PageColor(Colors.White);
-            page.DefaultTextStyle(x => x.FontSize(20));
+            page.DefaultTextStyle(x => x.FontSize(16)
+                                        .FontFamily("Roboto")
+                                        .FontColor(Colors.Black));
 
             page.Header()
                 .Text(language.Language)
-                .SemiBold().FontSize(36).FontColor(Colors.Blue.Medium);
+                .Bold().FontSize(24).FontColor(Colors.Blue.Accent2);
+
 
             page.Content()
                 .PaddingVertical(1, Unit.Centimetre)
-                .Column(x =>
+                .Column(column =>
                  {
-                     x.Spacing(20);
-                     x.Item().Image(Placeholders.Image(200, 100));
+                     column.Spacing(10);
+                     foreach (var exp in language.Experiences)
+                     {
+                         column.Item().Text(exp.Title).SemiBold().FontColor(Colors.Blue.Accent1);
+                         column.Item().Text(exp.Description).FontSize(12);
+                     }
+                 });
+
+            page.Footer()
+                .AlignCenter()
+                .Text(x =>
+                 {
+                     x.Span("Page ");
+                     x.CurrentPageNumber();
                  });
         });
     });
     
-    //document.ShowInPreviewer();
-    
     Directory.CreateDirectory(pdfDir);
-    document.GeneratePdf($"{pdfDir}{language.Language.ToLower()}.pdf");
+    var fileName = $"{language.Language.ToLower()}.pdf";
+    document.GeneratePdf($"{pdfDir}{fileName}");
+    Console.WriteLine($"Generated {fileName}!");
 }
+
+Console.WriteLine("Finished!");
