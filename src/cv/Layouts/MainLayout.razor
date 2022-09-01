@@ -12,9 +12,9 @@
 {
     <MudLayout>
         <MudAppBar Elevation="2">
-            @*<MudButton Color="Color.Inherit" Href="/">
+            <MudButton Color="Color.Inherit" Href="/">
                 @Localization.Get("Curriculum")
-            </MudButton>*@
+            </MudButton>
             @*<MudButton Color="Color.Inherit" Href="/Resume">
                 @Localization.Get("Resume")
             </MudButton>
@@ -40,7 +40,7 @@
         </MudAppBar>
         <MudMainContent>
             <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge" Class="d-flex">
-                <MudPaper Elevation="6" Class="mx-auto my-4" Style="width: 100vw">
+                <MudPaper Elevation="6" Class="mx-auto my-4" Style="width: 100vw; border-radius: 10px">
                     <div class="printable">
                         @Body
                     </div>
@@ -82,6 +82,7 @@ else
         {
             await LocalStorage.SetItemAsync("language", Localization.SelectedLanguageData.Language);
             await InvokeAsync(StateHasChanged);
+            StateHasChanged();
             _loaded = true;
         };
 

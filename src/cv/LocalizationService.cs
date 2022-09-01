@@ -31,12 +31,14 @@ public class LocalizationService
 
     public string Get(string id)
     {
-        if (SelectedLanguageData?.Translations.TryGetValue(id, out var value) ?? false)
+        //Console.WriteLine(string.Join(',', SelectedLanguageData.Translations.Keys));
+        if (!SelectedLanguageData.Translations.TryGetValue(id, out var value))
         {
-            return value;
+            return id;
         }
 
-        return $"|{id}| does not exists";
+        //Console.WriteLine($"{id} = {value}");
+        return value;
     }
 
     public async Task ChangeLanguage(string language = "english")
@@ -45,7 +47,7 @@ public class LocalizationService
         if (LanguageDatas.ContainsKey(language))
         {
             NotifyLanguageChange(LanguageDatas[language]);
-            Console.WriteLine($"Language changed to {language}!!");
+            //Console.WriteLine($"Language changed to {language}!!");
             return;
         }
 

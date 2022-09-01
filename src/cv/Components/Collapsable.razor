@@ -1,4 +1,4 @@
-﻿<MudPaper Class="@Class" Elevation="2" Style="outline: #594ae2ff solid 2px; border-radius: 10px">
+﻿<MudPaper Class="@Class" Elevation="2" Square="false" Style="outline: #594ae2ff solid 2px;">
     <MudExpansionPanel Dense="true" IsInitiallyExpanded="true">
         <TitleContent>
             <div class="d-flex">
@@ -27,7 +27,6 @@
     public bool Show { get; set; } = true;
 
     [Parameter]
-    [EditorRequired]
     public string Title { get; set; } = null!;
 
     [Parameter]

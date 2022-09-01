@@ -1,6 +1,6 @@
 ﻿@inject LocalizationService Localization
 
-<Collapsable Title="Skills" Icon="@Icons.Outlined.Bolt">
+<Collapsable Title="@Localization.Get("Skills")" Icon="@Icons.Outlined.Bolt">
     <div class="pa-2">
         @if (Localization.SkillsData != null)
         {
@@ -24,3 +24,12 @@
         }
     </div>
 </Collapsable>
+
+@code {
+
+    protected override Task OnInitializedAsync()
+    {
+        Localization.LanguageChanged += async () => { await InvokeAsync(StateHasChanged); };
+        return Task.CompletedTask;
+    }
+}

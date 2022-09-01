@@ -1,9 +1,28 @@
 ﻿@inject LocalizationService Localization;
 
-<div class="px-4 pt-4 pb-2">
-    <Collapsable Title="Introduction" Icon="@Icons.Filled.Person">
-        <MudText Class="pa-2">
-            @Localization.SelectedLanguageData.Introduction
-        </MudText>
-    </Collapsable>
+<div class="mx-4 my-4 px-4 pt-4 rounded-lg" style="background: #594ae2ff; color: white">
+    <MudGrid Class="py-4">
+        <MudItem>
+            <MudImage Src="imgs/pic.jpg" Alt="Profile Picture" Width="100" Class="rounded-lg"/>
+        </MudItem>
+        <MudItem>
+            <MudText Style="white-space: pre">
+                @Localization.SelectedLanguageData.Introduction
+            </MudText>
+        </MudItem>
+        <MudItem>
+            <MudText>
+                Contacts
+            </MudText>
+        </MudItem>
+    </MudGrid>
 </div>
+
+@code {
+
+    protected override Task OnInitializedAsync()
+    {
+        Localization.LanguageChanged += async () => { await InvokeAsync(StateHasChanged); };
+        return Task.CompletedTask;
+    }
+}
