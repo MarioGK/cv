@@ -4,9 +4,9 @@
 @inject ILocalStorageService LocalStorage
 @inject IJSRuntime JsRuntime;
 
-<MudThemeProvider IsDarkMode="_darkMode" />
-<MudDialogProvider />
-<MudSnackbarProvider />
+<MudThemeProvider IsDarkMode="_darkMode"/>
+<MudDialogProvider/>
+<MudSnackbarProvider/>
 
 @if (_loaded)
 {
@@ -24,19 +24,19 @@
             <MudButton Color="Color.Inherit" Href="/Contacts">
                 @Localization.Get("Contacts")
             </MudButton>
-        
-            <MudSpacer />
-        
+
+            <MudSpacer/>
+
             <MudIconButton Class="pa-0 mt-2" OnClick='async () => await Localization.ChangeLanguage("portugues")'>
                 <CountryFlag Country="Country.BR" Size="FlagSize.Normal"/>
             </MudIconButton>
-        
-            <MudIconButton Class="pa-0 mt-2"  OnClick="async () => await Localization.ChangeLanguage()">
+
+            <MudIconButton Class="pa-0 mt-2" OnClick="async () => await Localization.ChangeLanguage()">
                 <CountryFlag Country="Country.US" Size="FlagSize.Normal"/>
             </MudIconButton>
             <MudDivider Vertical="true" FlexItem="true" Class="my-2"/>
-            <MudIconButton Icon="@(_darkMode ? Icons.Filled.LightMode : Icons.Filled.DarkMode)" OnClick="ToggleMode" Color="Color.Inherit" />
-            <MudIconButton Icon="@Icons.Filled.Print" Color="Color.Inherit" OnClick="Print" />
+            <MudIconButton Icon="@(_darkMode ? Icons.Filled.LightMode : Icons.Filled.DarkMode)" OnClick="ToggleMode" Color="Color.Inherit"/>
+            <MudIconButton Icon="@Icons.Filled.Print" Color="Color.Inherit" OnClick="Print"/>
         </MudAppBar>
         <MudMainContent>
             <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge" Class="d-flex">
@@ -56,14 +56,14 @@ else
 
 @code {
     bool _darkMode = true;
-    bool _loaded = false;
+    bool _loaded;
 
     async Task ToggleMode()
     {
         _darkMode = !_darkMode;
         await LocalStorage.SetItemAsync("darkMode", _darkMode);
     }
-    
+
     async Task Print()
     {
         try
@@ -72,7 +72,7 @@ else
         }
         catch (Exception)
         {
-            //Ignore errors if any
+    //Ignore errors if any
         }
     }
 
@@ -84,13 +84,13 @@ else
             await InvokeAsync(StateHasChanged);
             _loaded = true;
         };
-        
-        if(await LocalStorage.ContainKeyAsync("darkMode"))
+
+        if (await LocalStorage.ContainKeyAsync("darkMode"))
         {
             _darkMode = await LocalStorage.GetItemAsync<bool>("darkMode");
         }
-        
-        if(await LocalStorage.ContainKeyAsync("language"))
+
+        if (await LocalStorage.ContainKeyAsync("language"))
         {
             var language = await LocalStorage.GetItemAsync<string>("language");
             if (string.IsNullOrEmpty(language))
@@ -106,7 +106,8 @@ else
         {
             await Localization.ChangeLanguage();
         }
-        
+
         _loaded = true;
     }
+
 }

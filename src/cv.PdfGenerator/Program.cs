@@ -1,10 +1,8 @@
-﻿
-using cv.Data;
+﻿using cv.Data;
 using QuestPDF.Drawing;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
-using QuestPDF.Previewer;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
@@ -15,8 +13,8 @@ var yamlDeserializer =
 var dataDir = @"F:\Projects\cv\src\cv\wwwroot\data\";
 var pdfDir  = "pdfs\\";
 #else
-var dataDir     = $"{Directory.GetCurrentDirectory()}/src/cv/wwwroot/data/";
-var pdfDir      = $"{Directory.GetCurrentDirectory()}/publish/wwwroot/pdfs/";
+var dataDir = $"{Directory.GetCurrentDirectory()}/src/cv/wwwroot/data/";
+var pdfDir = $"{Directory.GetCurrentDirectory()}/publish/wwwroot/pdfs/";
 #endif
 
 var languageDir = $"{dataDir}languages";
@@ -26,10 +24,10 @@ var languages = Directory.EnumerateFiles(languageDir, "*.yaml")
                          .Select(yaml => yamlDeserializer.Deserialize<LanguageData>(yaml)!)
                          .ToList();
 
-var skills      = yamlDeserializer.Deserialize<List<SkillsData>>(File.ReadAllText($"{dataDir}skills.yaml"));
+var skills = yamlDeserializer.Deserialize<List<SkillsData>>(File.ReadAllText($"{dataDir}skills.yaml"));
 
 var fontFiles = Directory.EnumerateFiles(Path.Combine(AppContext.BaseDirectory, "Fonts"), "*.ttf")
-         .ToList();
+                         .ToList();
 fontFiles.ForEach(font => FontManager.RegisterFont(File.OpenRead(font)));
 
 foreach (var language in languages)
@@ -75,20 +73,21 @@ foreach (var language in languages)
                          column.Item().Text(exp.Description);
                      }
                  });
-            
+
             page.Footer()
                 .DefaultTextStyle(text => text.FontSize(9).Light())
                 .AlignRight()
                 .AlignBottom()
                 .Row(row =>
                  {
-                     row.AutoItem().Text($"*This PDF was automatically generated from ");
-                     row.AutoItem().Hyperlink("https://cv.mariogk.top/").Text("cv.mariogk.top").FontColor(Colors.Blue.Darken1);
+                     row.AutoItem().Text("*This PDF was automatically generated from ");
+                     row.AutoItem().Hyperlink("https://cv.mariogk.top/").Text("cv.mariogk.top")
+                        .FontColor(Colors.Blue.Darken1);
                      row.AutoItem().Text(" for a better experience please visit the website.");
                  });
         });
     });
-    
+
     Directory.CreateDirectory(pdfDir);
     var fileName = $"{language.Language.ToLower()}.pdf";
     document.GeneratePdf($"{pdfDir}{fileName}");

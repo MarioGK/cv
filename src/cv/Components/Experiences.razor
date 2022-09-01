@@ -10,11 +10,10 @@
 }
 
 @code {
+
     protected override async Task OnInitializedAsync()
     {
-        Localization.LanguageChanged += async () =>
-        {
-            await InvokeAsync(StateHasChanged);
-        };
+        Localization.LanguageChanged += async () => { await InvokeAsync(StateHasChanged); };
     }
+
 }
