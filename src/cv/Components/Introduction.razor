@@ -1,18 +1,35 @@
 ﻿@inject LocalizationService Localization;
 
 <div class="mx-4 my-4 px-4 pt-4 rounded-lg" style="background: #594ae2ff; color: white">
-    <MudGrid Class="py-4">
-        <MudItem>
+    <MudGrid Spacing="2">
+        <MudItem Class="">
             <MudImage Src="imgs/pic.jpg" Alt="Profile Picture" Width="100" Class="rounded-lg"/>
         </MudItem>
-        <MudItem>
-            <MudText Style="white-space: pre">
+        <MudItem xs="8">
+            <MudText Style="white-space: pre-line">
                 @Localization.SelectedLanguageData.Introduction
             </MudText>
         </MudItem>
         <MudItem>
-            <MudText>
-                Contacts
+            <MudText Class="d-flex">
+                <MudIcon Class="mr-2" Icon="@Icons.Custom.Brands.GitHub"/>
+                <a href="https://github.com/MarioGK" style="color: white" target="_blank">Github</a>
+            </MudText>
+            <MudText Class="d-flex">
+                <MudIcon Class="mr-2" Icon="@Icons.Custom.Brands.LinkedIn"/>
+                <a href="https://www.linkedin.com/in/m%C3%A1rio-gabriell-karaziaki-belchior-0a271814b/" style="color: white" target="_blank">Linkedin</a>
+            </MudText>
+            <MudText Class="d-flex">
+                <MudIcon Class="mr-2" Icon="@Icons.Outlined.Email"/>
+                <a href="mailto:mariogk01@gmail.com" style="color: white" target="_blank">mariogk01@gmail.com</a>
+            </MudText>
+            <MudText Class="d-flex">
+                <MudIcon Class="mr-2" Icon="@Icons.Outlined.Phone"/>
+                <a href="tel:mariogk01@gmail.com" style="color: white" target="_blank">+55 44 999758367</a>
+            </MudText>
+            <MudText Class="d-flex">
+                <MudIcon Class="mr-2" Icon="@Icons.Filled.Whatsapp"/>
+                <a href="https://api.whatsapp.com/send?phone=5544999758367&text=Oi, Mario" style="color: white" target="_blank">WhatsApp</a>
             </MudText>
         </MudItem>
     </MudGrid>
