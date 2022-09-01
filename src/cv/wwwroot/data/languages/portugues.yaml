@@ -1,13 +1,13 @@
-﻿Language: English
+﻿Language: Portugues
 Translations:
-  contacts: Contacts
-  curriculum: Curriculum
-  resume: Resume
-  blog: Blog
+  Contacts: Contatos
+  Curriculum: Curriculum
+  Resume: Resume
+  Blog: Blog
 Introduction: |
-   My name is Mario Gabriell Karaziaki Belchior, i am a full stack developer with over 6 years of experience in the field.
-   I have worked with several technologies and i am always looking for new challenges.
-   I love to learn new things related to computers, development and electronics.
+    Meu nome é Mario Gabriell Karaziaki Belchior, sou um desenvolvedor full stack com mais de 6 anos de experiência no ramo.
+    Já trabalhei com várias tecnologias e estou sempre procurando novos desafios.
+    Eu amo aprender coisas novas relacionadas a computadores, desenvolvimento e eletrônica.
 Experiences:
   - Company: Google
     Position: Software Engineer
@@ -21,20 +21,3 @@ Experiences:
       for the world's information, shopping, and entertainment industries. We're looking
       to grow our business into something truly global, and we're committed to building
       the best products and services for our customers.
-  - Company: Facebook
-    Position: Software Engineer
-    StartDate: '2022-07-28T05:12:13.853+00:00'
-    EndDate: '2022-07-28T05:12:13.853+00:00'
-    Description: |
-      Facebook is an American online social media and social networking
-      service based in Menlo Park, California. It was created by Mark Zuckerberg, his
-      son, and roommates roommates, and raised by three college roommates. The Facebook
-      name comes from a colloquial expression meaning "Face with bookmarks".
-  - Company: LinkedIn
-    Position: Software Engineer
-    StartDate: '2022-07-28T05:12:13.853+00:00'
-    EndDate: '2022-07-28T05:12:13.853+00:00'
-    Description: |
-      LinkedIn is a company that provides online job-search and job-posting
-      services. It was founded in 2002 by Jeff Busser and his father, and is headquartered
-      in Palo Alto, California.
