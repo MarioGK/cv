@@ -92,7 +92,15 @@ else
         
         if(await LocalStorage.ContainKeyAsync("language"))
         {
-            await Localization.ChangeLanguage(await LocalStorage.GetItemAsync<string>("language"));
+            var language = await LocalStorage.GetItemAsync<string>("language");
+            if (string.IsNullOrEmpty(language))
+            {
+                await Localization.ChangeLanguage();
+            }
+            else
+            {
+                await Localization.ChangeLanguage(language);
+            }
         }
         else
         {

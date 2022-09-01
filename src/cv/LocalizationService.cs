@@ -1,5 +1,6 @@
-﻿using System.Net.Http.Json;
-using cv.Data;
+﻿using cv.Data;
+using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.NamingConventions;
 
 namespace cv;
 
@@ -31,24 +32,29 @@ public class LocalizationService
         return $"|{id}| does not exists";
     }
 
+    private static readonly IDeserializer YamlDeserializer =
+        new DeserializerBuilder().WithNamingConvention(PascalCaseNamingConvention.Instance).Build();
+
     public async Task ChangeLanguage(string language = "english")
     {
-        SkillsData ??= await _httpClient.GetFromJsonAsync<List<SkillsData>>("data/skills.json");
+        SkillsData ??= await GetFromYamlAsync<List<SkillsData>>("data/skills.yaml");
         if (LanguageDatas.ContainsKey(language))
         {
             NotifyLanguageChange(LanguageDatas[language]);
             Console.WriteLine($"Language changed to {language}!!");
             return;
         }
+        
+        var languageData = await GetFromYamlAsync<LanguageData>($"data/languages/{language.ToLowerInvariant()}.yaml");
 
-        var data = await _httpClient.GetFromJsonAsync<LanguageData>($"data/languages/{language.ToLowerInvariant()}.json");
-        if (data == null)
-        {
-            return;
-        }
+        LanguageDatas.Add(language, languageData);
+        NotifyLanguageChange(languageData);
+    }
 
-        LanguageDatas.Add(language, data);
-        NotifyLanguageChange(data);
+    private async Task<T>  GetFromYamlAsync<T>(string url)
+    {
+        var data         = await _httpClient.GetStringAsync(url);
+        return YamlDeserializer.Deserialize<T>(data);
     }
 
     public delegate void LanguageChangedDelegate();
