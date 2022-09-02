@@ -1,4 +1,5 @@
 ﻿using cv.Data;
+using cv.PdfGenerator.Components;
 using QuestPDF.Drawing;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
@@ -30,14 +31,7 @@ var fontFiles = Directory.EnumerateFiles(Path.Combine(AppContext.BaseDirectory, 
                          .ToList();
 fontFiles.ForEach(font => FontManager.RegisterFont(File.OpenRead(font)));
 
-var icons = new Dictionary<string, string>
-{
-    ["mail"] = "",
-    ["phone"] = "",
-    ["github"] = "",
-    ["whatsapp"] = "",
-    ["linkedin"] = "",
-};
+
 
 foreach (var language in languages)
 {
@@ -58,28 +52,37 @@ foreach (var language in languages)
                 .PaddingHorizontal(1, Unit.Centimetre)
                 .Column(c =>
                  {
-                     //Introduction and contacts
-                     c.Item().Row(row =>
-                     {
-                         row.AutoItem().Text(icons["mail"]).FontFamily("icons").FontSize(20);
-                         row.AutoItem().Text(icons["phone"]).FontFamily("icons").FontSize(20);
-                         row.AutoItem().Text(icons["github"]).FontFamily("icons").FontSize(20);
-                         row.AutoItem().Text(icons["whatsapp"]).FontFamily("icons").FontSize(20);
-                         row.AutoItem().Text(icons["linkedin"]).FontFamily("icons").FontSize(20);
-                     });
+                     //Title
                      c.Item().Text(language.Language)
                       .Bold().FontSize(24).FontColor(Colors.Blue.Accent2);
 
-                     c.Item().Text(language.Introduction);
+                     //Introduction and contacts
+                     c.Item().Row(introRow =>
+                     {
+                         introRow.Spacing(10);
+                         introRow.ConstantItem(100).Image("Images/Profile.jpg");
+                         introRow.RelativeItem().Text(language.Introduction);
+                         
+                         introRow.AutoItem().AlignRight().Column(cr =>
+                         {
+                             cr.IconLink("web",   "WebSite",              "https://github.com/MarioGK");
+                             cr.IconLink("github",   "Github",              "https://github.com/MarioGK");
+                             cr.IconLink("linkedin", "Linkedin",            "https://github.com/MarioGK");
+                             cr.IconLink("mail",     "mariogk01@gmail.com", "https://github.com/MarioGK");
+                             cr.IconLink("phone",    "+55 44 999758367",    "https://github.com/MarioGK");
+                             cr.IconLink("whatsapp", "WhatsApp",            "https://github.com/MarioGK");
+                         });
+                     });
+                     
                      c.Item().PaddingBottom(5);
                  });
-
-
+            
             page.Content()
                 .PaddingHorizontal(1, Unit.Centimetre)
                 .PaddingBottom(10)
                 .Column(column =>
                  {
+                     //Experiences
                      column.Spacing(10);
                      foreach (var exp in language.Experiences)
                      {

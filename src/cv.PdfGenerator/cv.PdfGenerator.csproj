@@ -23,4 +23,12 @@
         </None>
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Include="Images\Profile.jpg">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
 </Project>
