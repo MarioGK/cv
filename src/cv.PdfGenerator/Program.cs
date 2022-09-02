@@ -26,9 +26,18 @@ var languages = Directory.EnumerateFiles(languageDir, "*.yaml")
 
 var skills = yamlDeserializer.Deserialize<List<SkillsData>>(File.ReadAllText($"{dataDir}skills.yaml"));
 
-var fontFiles = Directory.EnumerateFiles(Path.Combine(AppContext.BaseDirectory, "Fonts"), "*.ttf")
+var fontFiles = Directory.EnumerateFiles(Path.Combine(AppContext.BaseDirectory, "Fonts"))
                          .ToList();
 fontFiles.ForEach(font => FontManager.RegisterFont(File.OpenRead(font)));
+
+var icons = new Dictionary<string, string>
+{
+    ["mail"] = "",
+    ["phone"] = "",
+    ["github"] = "",
+    ["whatsapp"] = "",
+    ["linkedin"] = "",
+};
 
 foreach (var language in languages)
 {
@@ -49,6 +58,15 @@ foreach (var language in languages)
                 .PaddingHorizontal(1, Unit.Centimetre)
                 .Column(c =>
                  {
+                     //Introduction and contacts
+                     c.Item().Row(row =>
+                     {
+                         row.AutoItem().Text(icons["mail"]).FontFamily("icons").FontSize(20);
+                         row.AutoItem().Text(icons["phone"]).FontFamily("icons").FontSize(20);
+                         row.AutoItem().Text(icons["github"]).FontFamily("icons").FontSize(20);
+                         row.AutoItem().Text(icons["whatsapp"]).FontFamily("icons").FontSize(20);
+                         row.AutoItem().Text(icons["linkedin"]).FontFamily("icons").FontSize(20);
+                     });
                      c.Item().Text(language.Language)
                       .Bold().FontSize(24).FontColor(Colors.Blue.Accent2);
 
@@ -88,6 +106,10 @@ foreach (var language in languages)
         });
     });
 
+    var metaData = DocumentMetadata.Default;
+    metaData.ImageQuality = 95;
+    document.WithMetadata(metaData);
+    
     Directory.CreateDirectory(pdfDir);
     var fileName = $"{language.Language.ToLower()}.pdf";
     document.GeneratePdf($"{pdfDir}{fileName}");
