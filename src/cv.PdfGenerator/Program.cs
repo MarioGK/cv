@@ -19,6 +19,8 @@ var pdfDir = $"{Directory.GetCurrentDirectory()}/publish/wwwroot/pdfs/";
 #endif
 
 var languageDir = $"{dataDir}languages";
+var fontsDir   = Path.Combine(AppContext.BaseDirectory, "Fonts");
+var imagesDir   = Path.Combine(AppContext.BaseDirectory, "Images");
 
 var languages = Directory.EnumerateFiles(languageDir, "*.yaml")
                          .Select(File.ReadAllText)
@@ -27,10 +29,9 @@ var languages = Directory.EnumerateFiles(languageDir, "*.yaml")
 
 var skills = yamlDeserializer.Deserialize<List<SkillsData>>(File.ReadAllText($"{dataDir}skills.yaml"));
 
-var fontFiles = Directory.EnumerateFiles(Path.Combine(AppContext.BaseDirectory, "Fonts"))
+var fontFiles = Directory.EnumerateFiles(fontsDir)
                          .ToList();
 fontFiles.ForEach(font => FontManager.RegisterFont(File.OpenRead(font)));
-
 
 
 foreach (var language in languages)
@@ -60,7 +61,7 @@ foreach (var language in languages)
                      c.Item().Row(introRow =>
                      {
                          introRow.Spacing(10);
-                         introRow.ConstantItem(100).Image("Images/Profile.jpg");
+                         introRow.ConstantItem(100).Image(Path.Join(imagesDir, "Profile.jpg"));
                          introRow.RelativeItem().Text(language.Introduction);
                          
                          introRow.AutoItem().AlignRight().Column(cr =>
