@@ -103,7 +103,7 @@ foreach (var cv in cvs)
                  });
 
             page.Footer()
-                .DefaultTextStyle(text => text.FontSize(9).Light())
+                .DefaultTextStyle(text => text.FontSize(8.2f).Italic().Light())
                 .AlignRight()
                 .AlignBottom()
                 .Row(row =>
@@ -111,7 +111,9 @@ foreach (var cv in cvs)
                      row.AutoItem().Text("*This PDF was automatically generated from ");
                      row.AutoItem().Hyperlink("https://cv.mariogk.top/").Text("cv.mariogk.top")
                         .FontColor(Colors.Blue.Darken1);
-                     row.AutoItem().Text(" for a better experience and the most updated information please visit the website.");
+                     row.AutoItem().Text(" for a better experience and the most updated information or other languages please visit the ");
+                     row.AutoItem().Hyperlink("https://cv.mariogk.top/").Text("website.")
+                        .FontColor(Colors.Blue.Darken1);
                  });
         });
     });
