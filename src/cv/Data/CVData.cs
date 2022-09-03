@@ -11,4 +11,16 @@ public class CVData
     public Dictionary<string, string> Translations { get; set; } = new();
 
     public List<ExperienceData> Experiences { get; set; } = new();
+    
+    public string GetTranslation(string key)
+    {
+        try
+        {
+            return Translations[key];
+        }
+        catch (Exception e)
+        {
+            return key;
+        }
+    }
 }

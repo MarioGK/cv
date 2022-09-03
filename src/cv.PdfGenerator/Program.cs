@@ -5,6 +5,7 @@ using QuestPDF.Drawing;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
+using SkiaSharp;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
@@ -19,9 +20,10 @@ var dataDir = $"{Directory.GetCurrentDirectory()}/src/cv/wwwroot/data/";
 var pdfDir = $"{Directory.GetCurrentDirectory()}/publish/wwwroot/pdfs/";
 #endif
 
-var cvDir = $"{dataDir}cv";
-var fontsDir   = Path.Combine(AppContext.BaseDirectory, "Fonts");
-var imagesDir   = Path.Combine(AppContext.BaseDirectory, "Images");
+var cvDir        = $"{dataDir}cv";
+var fontsDir     = Path.Combine(AppContext.BaseDirectory, "Fonts");
+var imagesDir    = Path.Combine(AppContext.BaseDirectory, "Images");
+var profileImage = Path.Join(imagesDir, "Profile.jpg");
 
 var cvs = Directory.EnumerateFiles(cvDir, "*.yaml")
                          .Select(File.ReadAllText)
@@ -49,14 +51,14 @@ foreach (var cv in cvs)
                                         .FontFamily("Roboto")
                                         .FontColor(Colors.Black));
 
-            /*page.Header()
+            page.Header()
                 .PaddingTop(1, Unit.Centimetre)
                 .PaddingHorizontal(1, Unit.Centimetre)
                 .Column(c =>
                  {
                      //Title
                      //c.Item().Text(cv.Language).Bold().FontSize(24).FontColor(Colors.Blue.Accent2);
-                 });*/
+                 });
             
             page.Content()
                 .PaddingHorizontal(1, Unit.Centimetre)
@@ -67,7 +69,8 @@ foreach (var cv in cvs)
                      column.Item().Row(introRow =>
                      {
                          introRow.Spacing(10);
-                         introRow.ConstantItem(100).Image(Path.Join(imagesDir, "Profile.jpg"));
+                         //image.
+                         introRow.ConstantItem(100).Container().Image(profileImage);
                          introRow.RelativeItem().Text(cv.Introduction);
                          
                          introRow.AutoItem().AlignRight().Column(cr =>
@@ -84,13 +87,13 @@ foreach (var cv in cvs)
                      column.Spacing(5);
                      
                      //Skills
-                     column.Item().Text("Skills:")
+                     column.Item().Text($"{cv.GetTranslation("Skills")}:")
                            .Bold().FontSize(18).FontColor(Colors.Blue.Accent2);
 
                      var skillsText = string.Join(", ", skills.OrderByDescending(s => s.Level).Select(s => s.Name));
                      column.Item().Text(skillsText);
 
-                     column.Item().Text("Experiences:")
+                     column.Item().Text($"{cv.GetTranslation("Experiences")}:")
                            .Bold().FontSize(18).FontColor(Colors.Blue.Accent2);
                      //Experiences
                      foreach (var exp in cv.Experiences)
