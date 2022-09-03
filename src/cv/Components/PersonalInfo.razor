@@ -1,0 +1,30 @@
+﻿@inject LocalizationService Localization
+
+<Collapsable Title="@Localization.Get("PersonalInfo")" Icon="@Icons.Outlined.Person">
+    <div class="pa-2">
+        @if (Localization.LanguageData != null)
+        {
+            @foreach (var personalInfo in Localization.SelectedPersonalInfo)
+            {
+                <MudGrid>
+                    <MudItem xs="6">
+                        <MudText>@Localization.Get(personalInfo.Key):</MudText>
+                    </MudItem>
+                    <MudItem xs="6">
+                        <MudText>@personalInfo.Value</MudText>
+                    </MudItem>
+                </MudGrid>
+            }
+        }
+    </div>
+</Collapsable>
+
+@code {
+
+    protected override Task OnInitializedAsync()
+    {
+        Localization.LanguageChanged += async () => { await InvokeAsync(StateHasChanged); };
+        return Task.CompletedTask;
+    }
+
+}

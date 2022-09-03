@@ -21,13 +21,17 @@ public class LocalizationService
 
     public LocalizationService(HttpClient httpClient)
     {
-        _httpClient   = httpClient;
-        LanguageDatas = new Dictionary<string, CVData>();
+        _httpClient  = httpClient;
+        CVDatas      = new Dictionary<string, CVData>();
+        PersonalData = new Dictionary<string, Dictionary<string, string>>();
     }
 
-    public Dictionary<string, CVData> LanguageDatas  { get; set; }
-    public CVData                     SelectedCVData { get; set; }
-    public List<SkillsData>?          SkillsData     { get; set; }
+    public Dictionary<string, CVData>                   CVDatas        { get; set; }
+    public CVData                                       SelectedCVData { get; set; }
+    public Dictionary<string,string>                    SelectedPersonalInfo { get; set; }
+    public List<SkillsData>?                            SkillsData     { get; set; }
+    public List<SkillsData>?                            LanguageData   { get; set; }
+    public Dictionary<string,Dictionary<string,string>> PersonalData   { get; set; }
 
     public string Get(string id)
     {
@@ -43,17 +47,24 @@ public class LocalizationService
 
     public async Task ChangeLanguage(string language = "english")
     {
-        SkillsData ??= await GetFromYamlAsync<List<SkillsData>>("data/skills.yaml");
-        if (LanguageDatas.ContainsKey(language))
+        language = language.ToLowerInvariant();
+        //If null fetch information from server, if not ignore
+        SkillsData   ??= await GetFromYamlAsync<List<SkillsData>>("data/skills.yaml");
+        LanguageData ??= await GetFromYamlAsync<List<SkillsData>>("data/languages.yaml");
+        
+        if (CVDatas.ContainsKey(language))
         {
-            NotifyLanguageChange(LanguageDatas[language]);
+            NotifyLanguageChange(CVDatas[language]);
             //Console.WriteLine($"Language changed to {language}!!");
             return;
         }
 
-        var languageData = await GetFromYamlAsync<CVData>($"data/cv/{language.ToLowerInvariant()}.yaml");
-
-        LanguageDatas.Add(language, languageData);
+        var languageData = await GetFromYamlAsync<CVData>($"data/cv/{language}.yaml");
+        CVDatas.Add(language, languageData);
+        
+        var personalInfo = await GetFromYamlAsync<Dictionary<string,string>>($"data/personalInfo/{language}.yaml");
+        PersonalData.Add(language, personalInfo);
+        
         NotifyLanguageChange(languageData);
     }
 
@@ -68,6 +79,7 @@ public class LocalizationService
     private void NotifyLanguageChange(CVData data)
     {
         SelectedCVData = data;
+        SelectedPersonalInfo = PersonalData[data.Language.ToLowerInvariant()];
         LanguageChanged?.Invoke();
     }
 }

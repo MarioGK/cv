@@ -1,7 +1,16 @@
 ﻿@page "/Blog"
 
 <h3>Blog</h3>
+<MudMarkdown Value="@Value" />
 
 @code {
+    private string Value = 
+        """"
+        ### Hello World
+
+        ```csharp
+        Console.WriteLine("Hello World");
+        ```
+        """";
 
 }

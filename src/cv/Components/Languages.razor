@@ -1,18 +1,18 @@
 ﻿@inject LocalizationService Localization
 
-<Collapsable Class="mt-4" Title="@Localization.Get("Skills")" Icon="@Icons.Outlined.Bolt">
+<Collapsable Class="mt-4" Title="@Localization.Get("Languages")" Icon="@Icons.Outlined.Translate">
     <div class="pa-2">
-        @if (Localization.SkillsData != null)
+        @if (Localization.LanguageData != null)
         {
-            @foreach (var skill in Localization.SkillsData)
+            @foreach (var language in Localization.LanguageData)
             {
                 <MudGrid>
                     <MudItem xs="5">
-                        <MudText>@skill.Name</MudText>
+                        <MudText>@language.Name</MudText>
                     </MudItem>
                     <MudItem xs="7">
                         <MudProgressLinear
-                            Value="@skill.Level"
+                            Value="@language.Level"
                             Color="Color.Primary"
                             Max="10"
                             Min="1"
