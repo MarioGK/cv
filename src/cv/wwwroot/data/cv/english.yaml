@@ -16,24 +16,30 @@ Introduction: |
 Experiences:
   - Company: Tech9
     Position: DevOps Engineer
-    StartDate: '2022-03-28T05:12:13.853+00:00'
-    EndDate: '2022-07-28T05:12:13.853+00:00'
+    StartDate: '2022-03-08T05:12:13.853+00:00'
+    EndDate: '2022-07-11T05:12:13.853+00:00'
     Description: |
-      AWS
+      I integrated Redis as a caching system for their scrapping service and RabbitMQ using Celery as the api for queuing up tasks.
+      Reconstructed and remodeled their whole infrastructure to AWS.
+      Used Pulumi to create the infrastructure as code and Github Actions to auto deploy their app to production.
   - Company: Hospital Ophir Loyola
     Position: Software Engineer
-    StartDate: '2021-01-28T05:12:13.853+00:00'
-    EndDate: '2022-12-28T05:12:13.853+00:00'
+    StartDate: '2021-01-13T05:12:13.853+00:00'
+    EndDate: '2022-02-24T05:12:13.853+00:00'
     Description: |
-      The project was a an easy to use stock management and sales system made in WPF(C#).
-      ASP.NET was used for the backend.
-      Which included features such as printing labels, printing receipts, warnings like low stock of a certain
-      item and an easy to use Interface.
-      GIT was used in this project just as a form of backup as the project was small and only me to do it.
-      I used Gitlab CI to auto deploy new changes made in the master branch.
+      I created tasks, distributed to the team according to their skills, and made multiple contributions to the
+      backend.
+      The project was a full stack application using C#, ASP.NET, a C# UI framework called Blazor and a C#
+      framework for SQL called EF Core, a fully featured management system of documents, appointments,
+      medical equipments/materials, calendar system and report statistical reports.
+      One of my key contributions to the project was a modular component called AutoForm which built
+      forms and forms within modal dialogs passing only the Type, it would automatically fetch the data from
+      the SQL database, and save it automatically as well, this was a huge time saver.
+      GIT was used to facilitate the collaboration between the team members.
+      The project is used daily by thousands of employees without any issues.
   - Company: Loja DasGringas
     Position: Software Engineer
-    StartDate: '2020-08-28T05:12:13.853+00:00'
+    StartDate: '2020-08-18T05:12:13.853+00:00'
     EndDate: '2020-12-28T05:12:13.853+00:00'
     Description: |
       The project was a an easy to use stock management and point of sales system made using WPF as its UI framework.
@@ -44,7 +50,7 @@ Experiences:
   - Company: MayconCT
     Position: Software Engineer
     StartDate: '2020-03-15T05:12:13.853+00:00'
-    EndDate: '2020-07-28T05:12:13.853+00:00'
+    EndDate: '2020-07-26T05:12:13.853+00:00'
     Description: |
       Flutter was used as the UI framework for the project.
       The project was published on the play store, the app store and as an web app.
