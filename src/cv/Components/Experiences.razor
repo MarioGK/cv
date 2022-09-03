@@ -1,12 +1,32 @@
 ﻿@inject LocalizationService Localization
 
-@foreach (var exp in Localization.SelectedLanguageData.Experiences)
+@if (Localization.SelectedCVData != null)
 {
-    <Collapsable Class="mb-4" Title="@exp.Title">
-        <MudText Class="pa-2" Typo="Typo.body1">
-            @exp.Description
-        </MudText>
-    </Collapsable>
+    @foreach (var exp in Localization.SelectedCVData.Experiences)
+    {
+        <Collapsable Class="mb-4" Title="@exp.Title">
+            <TitleContent>
+                <div class="d-flex justify-space-between align-center">
+                    <MudText Style="font-weight: bold;font-size: 1.4rem;color:#ecebf7;">
+                        @exp.Title
+                    </MudText>
+                    <MudText Style="font-weight: normal;font-size: 1.2rem;color:#ecebf7;">
+                        @exp.StartDate.ToString(Localization.SelectedCVData.DateFormat) - @exp.EndDate.ToString(Localization.SelectedCVData.DateFormat)
+                    </MudText>
+                </div>
+            </TitleContent>
+        
+            <ChildContent>
+                <MudText Class="pa-2 experience-text" Typo="Typo.body1">
+                    @exp.Description
+                </MudText>
+            </ChildContent>
+        </Collapsable>
+    }
+}
+else
+{
+    //Loading
 }
 
 @code {

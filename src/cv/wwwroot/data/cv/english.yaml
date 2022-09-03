@@ -1,0 +1,67 @@
+﻿Language: English
+DateFormat: MM/dd/yyyy
+Translations:
+  Contacts: Contacts
+  Curriculum: Curriculum
+  Resume: Resume
+  Blog: Blog
+  Introduction: Introduction
+  Skills: Skills
+Introduction: |
+  My name is Mario Gabriell Karaziaki Belchior, i am a full stack developer with over 6 years of experience in the field.
+  I have worked with several technologies and i am always looking for new challenges and learning new things.
+  I love to learn new things related to computers, software development and electronics.
+Experiences:
+  - Company: Tech9
+    Position: DevOps Engineer
+    StartDate: '2022-03-28T05:12:13.853+00:00'
+    EndDate: '2022-07-28T05:12:13.853+00:00'
+    Description: |
+      AWS
+  - Company: Hospital Ophir Loyola
+    Position: Software Engineer
+    StartDate: '2021-01-28T05:12:13.853+00:00'
+    EndDate: '2022-12-28T05:12:13.853+00:00'
+    Description: |
+      The project was a an easy to use stock management and sales system made in WPF(C#).
+      ASP.NET was used for the backend.
+      Which included features such as printing labels, printing receipts, warnings like low stock of a certain
+      item and an easy to use Interface.
+      GIT was used in this project just as a form of backup as the project was small and only me to do it.
+      I used Gitlab CI to auto deploy new changes made in the master branch.
+  - Company: Loja DasGringas
+    Position: Software Engineer
+    StartDate: '2020-08-28T05:12:13.853+00:00'
+    EndDate: '2020-12-28T05:12:13.853+00:00'
+    Description: |
+      The project was a an easy to use stock management and point of sales system made using WPF as its UI framework.
+      Which included features such as printing labels, printing receipts, warnings like low stock of a certain
+      item and an easy to use Interface.
+      ASP.NET core was used for the backend.
+      I used Gitlab CI to auto deploy new changes made in the master branch.
+  - Company: MayconCT
+    Position: Software Engineer
+    StartDate: '2020-03-15T05:12:13.853+00:00'
+    EndDate: '2020-07-28T05:12:13.853+00:00'
+    Description: |
+      Flutter was used as the UI framework for the project.
+      The project was published on the play store, the app store and as an web app.
+      ASP.NET core was used to make the backend and API.
+      GIT was used to trigger a Gitlab CI job and handle all the functional tests and automatic deployment to the stores and website.
+  - Company: Hilariante
+    Position: Software Engineer
+    StartDate: '2016-04-10T05:12:13.853+00:00'
+    EndDate: '2020-02-28T05:12:13.853+00:00'
+    Description: |
+      The project was designed to read information from memory of a legacy 3rd party software, and make a
+      scripting API so logics and interfaces could be written in C#.
+      The team used many technologies to accomplish this, C++ was used to read the memory and host a
+      .NET environment, C++/CLI was used to make the C# library as a "glue" to marshal C++ data to C#, 
+      we used AppDomains in C# to make a sandboxed environment which scripts and programs could run isolated and safely.
+      My contributions to the project were:
+        Observed progress of each project and analyzed the code.
+        Defined responsibilities, duties, and roles of each team member.
+      
+      The outcome was a heavily optimized API, which was pretty easy to use and create more features
+      using a legacy software that would have to be rewritten from scratch to accomplish the same thing, we
+      saved a lot of developer's time.

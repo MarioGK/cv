@@ -2,6 +2,18 @@
     background-color: #594ae2ff;
 }
 
+.collapsable-header{
+    background-color: #594ae2ff;
+}
+
 .mud-expand-panel-icon {
+    color: #ecebf7;
+}
+
+.experience-text{
+    white-space: pre-line;
+}
+
+.text-color{
     color: #ecebf7;
 }

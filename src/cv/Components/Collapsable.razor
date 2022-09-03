@@ -1,20 +1,26 @@
 ﻿<MudPaper Class="@Class" Elevation="2" Square="false" Style="outline: #594ae2ff solid 2px;">
     <MudExpansionPanel Dense="true" IsInitiallyExpanded="true">
         <TitleContent>
-            <div class="d-flex">
-                @if (Icon != null)
-                {
-                    <MudIcon Icon="@Icon" class="mr-3 my-auto" Size="Size.Large" Style="color:#ecebf7;"/>
-                }
-                <MudText Style="font-weight: bold;font-size: 1.4rem;color:#ecebf7;">
-                    @Title
-                </MudText>
-            </div>
+            @if (TitleContent == null)
+            {
+                <div class="d-flex">
+                    @if (Icon != null)
+                    {
+                        <MudIcon Icon="@Icon" class="mr-3 my-auto" Size="Size.Large" Style="color:#ecebf7;"/>
+                    }
+                    <MudText Style="font-weight: bold;font-size: 1.4rem;color:#ecebf7;">
+                        @Title
+                    </MudText>
+                </div>
+            }
+            else
+            {
+                @TitleContent
+            }
         </TitleContent>
         <ChildContent>
             @ChildContent
         </ChildContent>
-
     </MudExpansionPanel>
 </MudPaper>
 
@@ -28,6 +34,9 @@
 
     [Parameter]
     public string Title { get; set; } = null!;
+    
+    [Parameter]
+    public RenderFragment? TitleContent { get; set; }
 
     [Parameter]
     public string? Class { get; set; }

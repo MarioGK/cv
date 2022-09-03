@@ -68,7 +68,7 @@ else
     {
         try
         {
-            await JsRuntime.InvokeAsync<object>("open", $"https://cv.mariogk.top/pdfs/{Localization.SelectedLanguageData.Language.ToLower()}.pdf", "_blank");
+            await JsRuntime.InvokeAsync<object>("open", $"https://cv.mariogk.top/pdfs/{Localization.SelectedCVData!.Language.ToLower()}.pdf", "_blank");
         }
         catch (Exception)
         {
@@ -80,7 +80,11 @@ else
     {
         Localization.LanguageChanged += async () =>
         {
-            await LocalStorage.SetItemAsync("language", Localization.SelectedLanguageData.Language);
+            if (Localization.SelectedCVData != null)
+            {
+                await LocalStorage.SetItemAsync("language", Localization.SelectedCVData.Language);
+            }
+
             await InvokeAsync(StateHasChanged);
             StateHasChanged();
             _loaded = true;

@@ -22,17 +22,17 @@ public class LocalizationService
     public LocalizationService(HttpClient httpClient)
     {
         _httpClient   = httpClient;
-        LanguageDatas = new Dictionary<string, LanguageData>();
+        LanguageDatas = new Dictionary<string, CVData>();
     }
 
-    public Dictionary<string, LanguageData> LanguageDatas        { get; set; }
-    public LanguageData                     SelectedLanguageData { get; set; }
-    public List<SkillsData>?                SkillsData           { get; set; }
+    public Dictionary<string, CVData> LanguageDatas  { get; set; }
+    public CVData                     SelectedCVData { get; set; }
+    public List<SkillsData>?          SkillsData     { get; set; }
 
     public string Get(string id)
     {
         //Console.WriteLine(string.Join(',', SelectedLanguageData.Translations.Keys));
-        if (!SelectedLanguageData.Translations.TryGetValue(id, out var value))
+        if (!SelectedCVData.Translations.TryGetValue(id, out var value))
         {
             return id;
         }
@@ -51,7 +51,7 @@ public class LocalizationService
             return;
         }
 
-        var languageData = await GetFromYamlAsync<LanguageData>($"data/languages/{language.ToLowerInvariant()}.yaml");
+        var languageData = await GetFromYamlAsync<CVData>($"data/cv/{language.ToLowerInvariant()}.yaml");
 
         LanguageDatas.Add(language, languageData);
         NotifyLanguageChange(languageData);
@@ -65,9 +65,9 @@ public class LocalizationService
 
     public event LanguageChangedDelegate? LanguageChanged;
 
-    private void NotifyLanguageChange(LanguageData data)
+    private void NotifyLanguageChange(CVData data)
     {
-        SelectedLanguageData = data;
+        SelectedCVData = data;
         LanguageChanged?.Invoke();
     }
 }
