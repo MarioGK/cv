@@ -15,11 +15,30 @@
                     </MudText>
                 </div>
             </TitleContent>
-        
+
             <ChildContent>
                 <MudText Class="pa-2 experience-text" Typo="Typo.body1">
                     @exp.Description
                 </MudText>
+
+                @if (!string.IsNullOrEmpty(exp.ImagesDir))
+                {
+                    <MudCarousel
+                        Class="mud-width-full"
+                        Style="display: table;"
+                        ShowArrows="true"
+                        ShowBullets="true"
+                        AutoCycle="true"
+                        AutoCycleTime="@TimeSpan.FromSeconds(8)"
+                        TData="int"
+                        ItemsSource="@Enumerable.Range(1, exp.ImageCount)">
+                        <ItemTemplate>
+                            <div class="d-flex justify-center" style="display: table-row;">
+                                <MudImage Fluid="true" Src="@($"{BaseUrlImages}{context}.png")"/>
+                            </div>
+                        </ItemTemplate>
+                    </MudCarousel>
+                }
             </ChildContent>
         </Collapsable>
     }
@@ -31,10 +50,14 @@ else
 
 @code {
 
+    #if DEBUG
+    private string BaseUrlImages = "https://localhost:5001/Images/Projects/HospitalManager/";
+    #else
+    private string BaseUrlImages = "https://cv.mariogk.top/Images/Projects/HospitalManager/";
+    #endif
     protected override Task OnInitializedAsync()
     {
         Localization.LanguageChanged += async () => { await InvokeAsync(StateHasChanged); };
         return Task.CompletedTask;
     }
-
 }

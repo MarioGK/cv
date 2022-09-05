@@ -1,4 +1,5 @@
 ﻿
+using cv.Components;
 using cv.Data;
 using cv.PdfGenerator.Components;
 using QuestPDF.Drawing;
@@ -21,6 +22,7 @@ var pdfDir = $"{Directory.GetCurrentDirectory()}/publish/wwwroot/pdfs/";
 #endif
 
 var cvDir        = $"{dataDir}cv";
+var personalDir        = $"{dataDir}personalInfo";
 var fontsDir     = Path.Combine(AppContext.BaseDirectory, "Fonts");
 var imagesDir    = Path.Combine(AppContext.BaseDirectory, "Images");
 var profileImage = Path.Join(imagesDir, "Profile.jpg");
@@ -40,6 +42,8 @@ fontFiles.ForEach(font => FontManager.RegisterFont(File.OpenRead(font)));
 foreach (var cv in cvs)
 {
     Console.WriteLine($"Generating PDF for {cv.Language}...");
+    
+    var personalInfo = yamlDeserializer.Deserialize<Dictionary<string, string>>(File.ReadAllText($"{personalDir}/{cv.Language.ToLowerInvariant()}.yaml"));
     var document = Document.Create(container =>
     {
         container.Page(page =>
@@ -69,10 +73,21 @@ foreach (var cv in cvs)
                      column.Item().Row(introRow =>
                      {
                          introRow.Spacing(10);
-                         //image.
                          introRow.ConstantItem(100).Container().Image(profileImage);
-                         introRow.RelativeItem().Text(cv.Introduction);
-                         
+
+                         introRow.RelativeItem().Column(c =>
+                         {
+                             foreach (var p in personalInfo)
+                             {
+                                 c.Item().Row(r =>
+                                 {
+                                     //r.Spacing(5);
+                                     r.RelativeItem().Text($"{cv.GetTranslation(p.Key)}:").SemiBold();
+                                     r.RelativeItem().Text(p.Value);
+                                 });
+                             }
+                         });
+
                          introRow.AutoItem().AlignRight().Column(cr =>
                          {
                              cr.IconLink("web",      "WebSite",             "https://cv.mariogk.top/");
@@ -84,17 +99,18 @@ foreach (var cv in cvs)
                          });
                      });
                      
+                     //Introduction
+                     column.Title("Introduction");
+                     column.Item().Text(cv.Introduction);
+                     
                      column.Spacing(5);
                      
                      //Skills
-                     column.Item().Text($"{cv.GetTranslation("Skills")}:")
-                           .Bold().FontSize(18).FontColor(Colors.Blue.Accent2);
-
+                     column.Title(cv.GetTranslation("Skills"));
                      var skillsText = string.Join(", ", skills.OrderByDescending(s => s.Level).Select(s => s.Name));
                      column.Item().Text(skillsText);
 
-                     column.Item().Text($"{cv.GetTranslation("Experiences")}:")
-                           .Bold().FontSize(18).FontColor(Colors.Blue.Accent2);
+                     column.Title(cv.GetTranslation("Experiences"));
                      //Experiences
                      foreach (var exp in cv.Experiences)
                      {
@@ -106,14 +122,18 @@ foreach (var cv in cvs)
                 .DefaultTextStyle(text => text.FontSize(8.2f).Italic().Light())
                 .AlignRight()
                 .AlignBottom()
-                .Row(row =>
+                .Column(c =>
                  {
-                     row.AutoItem().Text("*This PDF was automatically generated from ");
-                     row.AutoItem().Hyperlink("https://cv.mariogk.top/").Text("cv.mariogk.top")
-                        .FontColor(Colors.Blue.Darken1);
-                     row.AutoItem().Text(" for a better experience and the most updated information or other languages please visit the ");
-                     row.AutoItem().Hyperlink("https://cv.mariogk.top/").Text("website.")
-                        .FontColor(Colors.Blue.Darken1);
+                     c.Item().LineHorizontal(1);
+                     c.Item().Row(row =>
+                     {
+                         row.AutoItem().Text("*This PDF was automatically generated from ");
+                         row.AutoItem().Hyperlink("https://cv.mariogk.top/").Text("cv.mariogk.top")
+                            .FontColor(Colors.Blue.Darken1);
+                         row.AutoItem().Text(" for a better experience and the most updated information or other languages please visit the ");
+                         row.AutoItem().Hyperlink("https://cv.mariogk.top/").Text("website.")
+                            .FontColor(Colors.Blue.Darken1);
+                     });
                  });
         });
     });

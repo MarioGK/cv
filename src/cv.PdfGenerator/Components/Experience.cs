@@ -8,7 +8,7 @@ public static class ExperienceComponent
 {
     public static void Experience(this ColumnDescriptor container, ExperienceData exp, string dateFormat)
     {
-        container.Item().ShowEntire().Column(column =>
+        container.Item().Column(column =>
         {
             column.Item().Row(row =>
             {

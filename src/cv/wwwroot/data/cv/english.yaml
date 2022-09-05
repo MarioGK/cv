@@ -17,8 +17,10 @@ Translations:
   CountryOfBirth: Country of Birth
 Introduction: |
   My name is Mario Gabriell Karaziaki Belchior, i am a full stack developer with over 6 years of experience in the field.
+  Although i am a full stack developer, i have more experience in the backend, but i am also very good at frontend.
   I have worked with several technologies and i am always looking for new challenges and learning new things.
-  I love to learn new things related to computers, software development and electronics.
+  I love to learn and research new things related to computers, software development and electronics.
+  My favorite pastime activity is to read books and play games.
 Experiences:
   - Company: Tech9
     Position: DevOps Engineer
@@ -32,8 +34,10 @@ Experiences:
     Position: Software Engineer
     StartDate: '2021-01-13T05:12:13.853+00:00'
     EndDate: '2022-02-24T05:12:13.853+00:00'
+    #ImagesDir: HospitalManager
+    #ImageCount: 5 # Number of images in the ImagesDir, Maybe there is a better way to do this?
     Description: |
-      I created tasks, distributed to the team according to their skills, and made multiple contributions to the
+      I created tasks and them distributed to the team according to their skills, and made multiple contributions to the
       backend.
       The project was a full stack application using C#, ASP.NET, a C# UI framework called Blazor and a C#
       framework for SQL called EF Core, a fully featured management system of documents, appointments,
@@ -75,7 +79,6 @@ Experiences:
       My contributions to the project were:
         Observed progress of each project and analyzed the code.
         Defined responsibilities, duties, and roles of each team member.
-      
       The outcome was a heavily optimized API, which was pretty easy to use and create more features
       using a legacy software that would have to be rewritten from scratch to accomplish the same thing, we
       saved a lot of developer's time.
