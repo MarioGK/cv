@@ -1,0 +1,65 @@
+﻿Type: DevOps
+Introduction: |
+  Meu nome é Mario Gabriell Karaziaki Belchior, sou um desenvolvedor full stack com mais de 6 anos de experiência no ramo.
+  Apesar de ser um desenvolvedor full stack, tenho mais experiência no backend, mas também sou muito bom no frontend.
+  Já trabalhei com várias tecnologias e estou sempre procurando novos desafios e aprender mais.
+  Meu passatempo favorito é ler livros e jogar videogames.
+Experiences:
+  - Company: Tech9
+    Position: DevOps Engineer
+    StartDate: '2022-03-08T05:12:13.853+00:00'
+    EndDate: '2022-07-11T05:12:13.853+00:00'
+    Description: |
+      Integrei o Redis como um sistema de cache para o serviço de sucateamento e o RabbitMQ usando o Celery como api para enfileirar tarefas.
+      Reconstruiu e remodelou toda sua infraestrutura para AWS.
+      Usou o Pulumi para criar a infraestrutura como código e o Github Actions para implantar automaticamente o aplicativo na produção.
+  - Company: Hospital Ophir Loyola
+    Position: Software Engineer
+    StartDate: '2021-01-13T05:12:13.853+00:00'
+    EndDate: '2022-02-24T05:12:13.853+00:00'
+    Description: |
+      Criei tarefas, distribuí para a equipe de acordo com suas habilidades, e fiz múltiplas contribuições para o
+      Processo interno.
+      O projeto era um aplicativo de pilha completa usando C#, ASP.NET, um framework C# UI chamado Blazor e um C#
+      framework para SQL chamado EF Core, um sistema de gerenciamento completo de documentos, compromissos,
+      equipamentos/materiais médicos, sistema de calendário e relatórios estatísticos.
+      Uma das minhas principais contribuições para o projeto foi um componente modular chamado AutoForm que construiu
+      formulários e formulários dentro de diálogos modais passando apenas o Tipo, ele buscaria automaticamente os dados de
+      o banco de dados SQL e salvá-lo automaticamente também, isso foi uma grande economia de tempo.
+      O GIT foi usado para facilitar a colaboração entre os membros da equipe.
+      O projeto é utilizado diariamente por milhares de funcionários sem nenhum problema.
+  - Company: Loja DasGringas
+    Position: Software Engineer
+    StartDate: '2020-08-18T05:12:13.853+00:00'
+    EndDate: '2020-12-28T05:12:13.853+00:00'
+    Description: |
+      O projeto foi um sistema de gerenciamento de estoque e ponto de venda fácil de usar feito usando o WPF como sua estrutura de interface do usuário.
+      Que incluía recursos como impressão de etiquetas, impressão de recibos, avisos como estoque baixo de um determinado
+      item e uma interface fácil de usar.
+      O ASP.NET core foi usado para o back-end.
+      Usei o Gitlab CI para implantar automaticamente novas alterações feitas no branch master.
+  - Company: MayconCT
+    Position: Software Engineer
+    StartDate: '2020-03-15T05:12:13.853+00:00'
+    EndDate: '2020-07-26T05:12:13.853+00:00'
+    Description: |
+      Flutter foi usado como a estrutura de interface do usuário para o projeto.
+      O projeto foi publicado na Play Store, na App Store e como um web app.
+      O ASP.NET core foi usado para fazer o backend e a API.
+      O GIT foi usado para acionar um job do Gitlab CI e lidar com todos os testes funcionais e implantação automática nas lojas e no site.
+  - Company: Hilariante
+    Position: Software Engineer
+    StartDate: '2016-04-10T05:12:13.853+00:00'
+    EndDate: '2020-02-28T05:12:13.853+00:00'
+    Description: |
+      O projeto foi projetado para ler informações da memória de um software de terceiros legado e fazer uma
+      API de script para que lógicas e interfaces possam ser escritas em C#.
+      A equipe usou muitas tecnologias para fazer isso, C++ foi usado para ler a memória e hospedar um
+      .NET, C++/CLI foi usado para fazer a biblioteca C# como uma "cola" para empacotar dados C++ para C#,
+      usamos AppDomains em C# para criar um ambiente de área restrita onde scripts e programas pudessem ser executados isolados e com segurança.
+      Minhas contribuições para o projeto foram:
+        Observava o progresso de cada projeto e analisava o código.
+        Responsabilidades, deveres e papéis definidos de cada membro da equipe.
+      O resultado foi uma API altamente otimizada, muito fácil de usar e criar mais recursos
+      usando um software legado que teria que ser reescrito do zero para realizar a mesma coisa, nós
+      economizou muito tempo do desenvolvedor.

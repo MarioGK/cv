@@ -1,6 +1,6 @@
-﻿using cv.Data;
-using MudBlazor;
+﻿using cv.Common.Models;
 using QuestPDF.Fluent;
+using QuestPDF.Helpers;
 
 namespace cv.PdfGenerator.Components;
 
@@ -13,13 +13,14 @@ public static class ExperienceComponent
             column.Item().Row(row =>
             {
                 row.RelativeItem().Text(exp.Title)
-                .Bold()
-                .FontSize(16)
-                .FontColor(Colors.Blue.Default);
+                   .Bold()
+                   .FontSize(16)
+                   .FontColor(Colors.Blue.Medium);
 
-                row.AutoItem().AlignRight().Text($"{exp.StartDate.ToString(dateFormat)} - {exp.EndDate.ToString(dateFormat)}").SemiBold();
+                row.AutoItem().AlignRight()
+                   .Text($"{exp.StartDate.ToString(dateFormat)} - {exp.EndDate.ToString(dateFormat)}").SemiBold();
             });
-                    
+
             column.Item().Text(exp.Description);
         });
     }

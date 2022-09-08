@@ -1,5 +1,4 @@
 ﻿using QuestPDF.Fluent;
-using QuestPDF.Infrastructure;
 
 namespace cv.PdfGenerator.Components;
 
@@ -12,9 +11,9 @@ public static class IconLinkComponent
         ["github"]   = "",
         ["whatsapp"] = "",
         ["linkedin"] = "",
-        ["web"] = ""
+        ["web"]      = ""
     };
-    
+
     public static void IconLink(this ColumnDescriptor container, string icon, string text, string url)
     {
         container.Item().Row(rr =>

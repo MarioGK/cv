@@ -1,6 +1,6 @@
 ﻿@using Blazored.LocalStorage
 @inherits LayoutComponentBase
-@inject LocalizationService Localization
+@inject IDataProvider Localization
 @inject ILocalStorageService LocalStorage
 @inject IJSRuntime JsRuntime;
 
@@ -15,11 +15,11 @@
             <MudButton Color="Color.Inherit" Href="/">
                 @Localization.Get("Curriculum")
             </MudButton>
-            
+
             @*<MudButton Color="Color.Inherit" Href="/Blog">
                 @Localization.Get("Blog")
             </MudButton>*@
-            
+
             @*<MudButton Color="Color.Inherit" Href="/Resume">
                 @Localization.Get("Resume")
             </MudButton>
@@ -29,7 +29,7 @@
 
             <MudSpacer/>
 
-            <MudIconButton Class="pa-0 mt-2" OnClick='async () => await Localization.ChangeLanguage("portugues")'>
+            <MudIconButton Class="pa-0 mt-2" OnClick='async () => await Localization.ChangeLanguage(Language.Portugues)'>
                 <CountryFlag Country="Country.BR" Size="FlagSize.Normal"/>
             </MudIconButton>
 
@@ -70,7 +70,7 @@ else
     {
         try
         {
-            await JsRuntime.InvokeAsync<object>("open", $"https://cv.mariogk.top/pdfs/{Localization.SelectedCVData!.Language.ToLower()}.pdf", "_blank");
+            await JsRuntime.InvokeAsync<object>("open", $"https://cv.mariogk.top/pdfs/{Localization.SelectedCVData.Language}.pdf", "_blank");
         }
         catch (Exception)
         {
@@ -80,7 +80,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        Localization.LanguageChanged += async () =>
+        Localization.LocalizationChanged += async () =>
         {
             if (Localization.SelectedCVData != null)
             {
@@ -99,14 +99,14 @@ else
 
         if (await LocalStorage.ContainKeyAsync("language"))
         {
-            var language = await LocalStorage.GetItemAsync<string>("language");
-            if (string.IsNullOrEmpty(language))
+            try
+            {
+                var language = await LocalStorage.GetItemAsync<Language>("language");
+                await Localization.ChangeLanguage(language);
+            }
+            catch (Exception)
             {
                 await Localization.ChangeLanguage();
-            }
-            else
-            {
-                await Localization.ChangeLanguage(language);
             }
         }
         else

@@ -1,4 +1,4 @@
-﻿@inject LocalizationService Localization;
+﻿@inject IDataProvider Localization;
 
 <div class="mx-4 my-4 px-4 pt-4 rounded-lg" style="background: #594ae2ff; color: white">
     <div class="d-flex flex-grow-1 justify-space-between gap-4 pb-4">
@@ -37,7 +37,7 @@
 
     protected override Task OnInitializedAsync()
     {
-        Localization.LanguageChanged += async () => { await InvokeAsync(StateHasChanged); };
+        Localization.LocalizationChanged += async () => { await InvokeAsync(StateHasChanged); };
         return Task.CompletedTask;
     }
 

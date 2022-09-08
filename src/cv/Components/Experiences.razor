@@ -1,4 +1,5 @@
-﻿@inject LocalizationService Localization
+﻿@using cv.Common
+@inject IDataProvider Localization
 
 @if (Localization.SelectedCVData != null)
 {
@@ -11,7 +12,7 @@
                         @exp.Title
                     </MudText>
                     <MudText Style="font-weight: normal;font-size: 1.2rem;color:#ecebf7;">
-                        @exp.StartDate.ToString(Localization.SelectedCVData.DateFormat) - @exp.EndDate.ToString(Localization.SelectedCVData.DateFormat)
+                        @exp.StartDate.ToString(Localization.SelectedLocalization.DateFormat) - @exp.EndDate.ToString(Localization.SelectedLocalization.DateFormat)
                     </MudText>
                 </div>
             </TitleContent>
@@ -50,14 +51,16 @@ else
 
 @code {
 
-    #if DEBUG
+#if DEBUG
     private string BaseUrlImages = "https://localhost:5001/Images/Projects/HospitalManager/";
-    #else
+#else
     private string BaseUrlImages = "https://cv.mariogk.top/Images/Projects/HospitalManager/";
-    #endif
+#endif
+
     protected override Task OnInitializedAsync()
     {
-        Localization.LanguageChanged += async () => { await InvokeAsync(StateHasChanged); };
+        Localization.LocalizationChanged += async () => { await InvokeAsync(StateHasChanged); };
         return Task.CompletedTask;
     }
+
 }

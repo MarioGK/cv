@@ -1,4 +1,4 @@
-﻿namespace cv.Data;
+﻿namespace cv.Common.Models;
 
 public class ExperienceData
 {

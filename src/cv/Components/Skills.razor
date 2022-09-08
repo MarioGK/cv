@@ -1,9 +1,7 @@
-﻿@inject LocalizationService Localization
+﻿@inject WebDataProvider Localization
 
 <Collapsable Class="mt-4" Title="@Localization.Get("Skills")" Icon="@Icons.Outlined.Bolt">
     <div class="pa-2">
-        @if (Localization.SkillsData != null)
-        {
             @foreach (var skill in Localization.SkillsData)
             {
                 <MudGrid>
@@ -21,7 +19,6 @@
                     </MudItem>
                 </MudGrid>
             }
-        }
     </div>
 </Collapsable>
 
@@ -29,7 +26,7 @@
 
     protected override Task OnInitializedAsync()
     {
-        Localization.LanguageChanged += async () => { await InvokeAsync(StateHasChanged); };
+        Localization.LocalizationChanged += async () => { await InvokeAsync(StateHasChanged); };
         return Task.CompletedTask;
     }
 

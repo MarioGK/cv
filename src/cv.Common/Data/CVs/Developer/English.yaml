@@ -1,20 +1,4 @@
-﻿Language: English
-DateFormat: MM/dd/yyyy
-Translations:
-  Contacts: Contacts
-  Curriculum: Curriculum
-  Resume: Resume
-  Blog: Blog
-  Introduction: Introduction
-  Skills: Skills
-  Experience: Experience
-  Experiences: Experiences
-  Languages: Languages
-  PersonalInfo: Personal Information
-  Name: Name
-  LastName: Last Name
-  DateOfBirth: Date of Birth
-  CountryOfBirth: Country of Birth
+﻿Type: Developer
 Introduction: |
   My name is Mario Gabriell Karaziaki Belchior, i am a full stack developer with over 6 years of experience in the field.
   Although i am a full stack developer, i have more experience in the backend, but i am also very good at frontend.

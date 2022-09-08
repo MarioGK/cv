@@ -1,49 +1,29 @@
-﻿
-using cv.Components;
-using cv.Data;
+﻿using cv.Common;
 using cv.PdfGenerator.Components;
 using QuestPDF.Drawing;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
-using SkiaSharp;
-using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.NamingConventions;
-
-var yamlDeserializer =
-    new DeserializerBuilder().WithNamingConvention(PascalCaseNamingConvention.Instance).Build();
 
 #if DEBUG
-var dataDir = @"F:\Projects\cv\src\cv\wwwroot\data\";
-var pdfDir  = "pdfs\\";
+var outputDir  = "pdfs\\";
 #else
-var dataDir = $"{Directory.GetCurrentDirectory()}/src/cv/wwwroot/data/";
-var pdfDir = $"{Directory.GetCurrentDirectory()}/publish/wwwroot/pdfs/";
+var outputDir = $"{Directory.GetCurrentDirectory()}/publish/wwwroot/pdfs/";
 #endif
 
-var cvDir        = $"{dataDir}cv";
-var personalDir        = $"{dataDir}personalInfo";
 var fontsDir     = Path.Combine(AppContext.BaseDirectory, "Fonts");
-var imagesDir    = Path.Combine(AppContext.BaseDirectory, "Images");
-var profileImage = Path.Join(imagesDir, "Profile.jpg");
+var profileImage = Path.Combine(AppContext.BaseDirectory, "Data", "Images", "Profile.jpg");
 
-var cvs = Directory.EnumerateFiles(cvDir, "*.yaml")
-                         .Select(File.ReadAllText)
-                         .Select(yaml => yamlDeserializer.Deserialize<CVData>(yaml)!)
-                         .ToList();
+var data = new LocalDataProvider();
 
-var skills = yamlDeserializer.Deserialize<List<SkillsData>>(File.ReadAllText($"{dataDir}skills.yaml"));
+var languages = Enum.GetValues(typeof(Language)).Cast<Language>();
 
-var fontFiles = Directory.EnumerateFiles(fontsDir)
-                         .ToList();
-fontFiles.ForEach(font => FontManager.RegisterFont(File.OpenRead(font)));
-
-
-foreach (var cv in cvs)
+foreach (var language in languages)
 {
-    Console.WriteLine($"Generating PDF for {cv.Language}...");
-    
-    var personalInfo = yamlDeserializer.Deserialize<Dictionary<string, string>>(File.ReadAllText($"{personalDir}/{cv.Language.ToLowerInvariant()}.yaml"));
+    await data.ChangeLanguage(language);
+    var cv = data.SelectedCVData;
+    Console.WriteLine($"Generating PDF for {language}...");
+
     var document = Document.Create(container =>
     {
         container.Page(page =>
@@ -63,7 +43,7 @@ foreach (var cv in cvs)
                      //Title
                      //c.Item().Text(cv.Language).Bold().FontSize(24).FontColor(Colors.Blue.Accent2);
                  });
-            
+
             page.Content()
                 .PaddingHorizontal(1, Unit.Centimetre)
                 .PaddingBottom(10)
@@ -77,45 +57,43 @@ foreach (var cv in cvs)
 
                          introRow.RelativeItem().Column(c =>
                          {
-                             foreach (var p in personalInfo)
-                             {
+                             foreach (var p in data.SelectedPersonalInfo)
                                  c.Item().Row(r =>
                                  {
                                      //r.Spacing(5);
-                                     r.RelativeItem().Text($"{cv.GetTranslation(p.Key)}:").SemiBold();
+                                     r.RelativeItem().Text($"{data.Get(p.Key)}:").SemiBold();
                                      r.RelativeItem().Text(p.Value);
                                  });
-                             }
                          });
 
                          introRow.AutoItem().AlignRight().Column(cr =>
                          {
-                             cr.IconLink("web",      "WebSite",             "https://cv.mariogk.top/");
-                             cr.IconLink("github",   "Github",              "https://github.com/MarioGK");
-                             cr.IconLink("linkedin", "Linkedin",            "https://www.linkedin.com/in/m%C3%A1rio-gabriell-karaziaki-belchior-0a271814b/");
-                             cr.IconLink("mail",     "mariogk01@gmail.com", "mailto:mariogk01@gmail.com");
-                             cr.IconLink("phone",    "+55 44 999758367",    "tel:+5544999758367");
-                             cr.IconLink("whatsapp", "WhatsApp",            "https://api.whatsapp.com/send?phone=5544999758367&text=Oi, Mario");
+                             cr.IconLink("web",    "WebSite", "https://cv.mariogk.top/");
+                             cr.IconLink("github", "Github",  "https://github.com/MarioGK");
+                             cr.IconLink("linkedin", "Linkedin",
+                                         "https://www.linkedin.com/in/m%C3%A1rio-gabriell-karaziaki-belchior-0a271814b/");
+                             cr.IconLink("mail",  "mariogk01@gmail.com", "mailto:mariogk01@gmail.com");
+                             cr.IconLink("phone", "+55 44 999758367",    "tel:+5544999758367");
+                             cr.IconLink("whatsapp", "WhatsApp",
+                                         "https://api.whatsapp.com/send?phone=5544999758367&text=Oi, Mario");
                          });
                      });
-                     
+
                      //Introduction
                      column.Title("Introduction");
                      column.Item().Text(cv.Introduction);
-                     
+
                      column.Spacing(5);
-                     
+
                      //Skills
-                     column.Title(cv.GetTranslation("Skills"));
-                     var skillsText = string.Join(", ", skills.OrderByDescending(s => s.Level).Select(s => s.Name));
+                     column.Title(data.Get("Skills"));
+                     var skillsText =
+                         string.Join(", ", data.SkillsData.OrderByDescending(s => s.Level).Select(s => s.Name));
                      column.Item().Text(skillsText);
 
-                     column.Title(cv.GetTranslation("Experiences"));
+                     column.Title(data.Get("Experiences"));
                      //Experiences
-                     foreach (var exp in cv.Experiences)
-                     {
-                        column.Experience(exp, cv.DateFormat);
-                     }
+                     foreach (var exp in cv.Experiences) column.Experience(exp, data.SelectedLocalization.DateFormat);
                  });
 
             page.Footer()
@@ -130,7 +108,8 @@ foreach (var cv in cvs)
                          row.AutoItem().Text("*This PDF was automatically generated from ");
                          row.AutoItem().Hyperlink("https://cv.mariogk.top/").Text("cv.mariogk.top")
                             .FontColor(Colors.Blue.Darken1);
-                         row.AutoItem().Text(" for a better experience and the most updated information or other languages please visit the ");
+                         row.AutoItem()
+                            .Text(" for a better experience and the most updated information or other languages please visit the ");
                          row.AutoItem().Hyperlink("https://cv.mariogk.top/").Text("website.")
                             .FontColor(Colors.Blue.Darken1);
                      });
@@ -138,14 +117,20 @@ foreach (var cv in cvs)
         });
     });
 
+    var fontFiles = Directory.EnumerateFiles(fontsDir)
+                             .ToList();
+    fontFiles.ForEach(font => FontManager.RegisterFont(File.OpenRead(font)));
+
     var metaData = DocumentMetadata.Default;
-    metaData.ImageQuality = 95;
+    metaData.ImageQuality = 90;
     document.WithMetadata(metaData);
-    
-    Directory.CreateDirectory(pdfDir);
-    var fileName = $"{cv.Language.ToLower()}.pdf";
-    document.GeneratePdf($"{pdfDir}{fileName}");
+
+    Directory.CreateDirectory(outputDir);
+    var fileName = $"{cv.Language.ToString()}.pdf";
+    document.GeneratePdf($"{outputDir}{fileName}");
     Console.WriteLine($"Generated {fileName}!");
 }
+
+
 
 Console.WriteLine("Finished!");
