@@ -24,10 +24,10 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="..\cv.Common\Data\**\*">
-          <Link>wwwroot\Data\%(RecursiveDir)/%(FileName)%(Extension)</Link>
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
+        <None Include="..\cv.Common\Data\**\*">
+            <Link>wwwroot\Data\%(RecursiveDir)/%(FileName)%(Extension)</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
 </Project>
