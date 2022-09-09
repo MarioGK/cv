@@ -23,11 +23,6 @@
         <ProjectReference Include="..\cv.Common\cv.Common.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-        <None Include="..\cv.Common\Data\**\*">
-            <Link>wwwroot\Data\%(RecursiveDir)/%(FileName)%(Extension)</Link>
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-    </ItemGroup>
+
 
 </Project>

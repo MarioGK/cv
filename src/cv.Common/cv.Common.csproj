@@ -10,48 +10,4 @@
         <PackageReference Include="YamlDotNet" Version="12.0.0" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Content Include="Data\Blog\WIP.md" />
-      <Content Include="Data\CVs\Developer\English.yaml" />
-      <Content Include="Data\CVs\Developer\Portugues.yaml" />
-      <Content Include="Data\CVs\DevOps\English.yaml" />
-      <Content Include="Data\CVs\DevOps\Portugues.yaml" />
-      <Content Include="Data\Images\Profile.jpg">
-        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      </Content>
-      <Content Include="Data\Images\Projects\HospitalManager\1.png">
-        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      </Content>
-      <Content Include="Data\Images\Projects\HospitalManager\2.png">
-        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      </Content>
-      <Content Include="Data\Images\Projects\HospitalManager\3.png">
-        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      </Content>
-      <Content Include="Data\Images\Projects\HospitalManager\4.png">
-        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      </Content>
-      <Content Include="Data\Images\Projects\HospitalManager\5.png">
-        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      </Content>
-      <Content Include="Data\Languages.yaml">
-        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      </Content>
-      <Content Include="Data\PersonalInfo\English.yaml" />
-      <Content Include="Data\PersonalInfo\Portugues.yaml" />
-      <Content Include="Data\Skills.yaml">
-        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      </Content>
-      <Content Include="Data\Localizations\English.yaml" />
-      <Content Include="Data\Localizations\Portugues.yaml" />
-    </ItemGroup>
-
 </Project>

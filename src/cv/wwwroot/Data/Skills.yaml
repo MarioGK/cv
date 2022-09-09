@@ -1,6 +1,8 @@
 ﻿---
 - Name: C#
   Level: 10
+- Name: .NET
+  Level: 9
 - Name: ASP.NET
   Level: 9
 - Name: Blazor
