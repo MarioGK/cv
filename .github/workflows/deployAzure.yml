@@ -37,10 +37,10 @@ jobs:
         with:
           inlineScript: |
             az storage blob upload-batch --account-name mariogktop --auth-mode key -d '$web' -s ./publish/wwwroot --overwrite=true
-            az storage blob upload-batch --account-name mariogktop --auth-mode key -d '$web' -s ./publish/wwwroot --overwrite=true --content-encoding="GZip" --pattern="*.gz" --content-type="application/octet-stream"
-            az storage blob upload-batch --account-name mariogktop --auth-mode key -d '$web' -s ./publish/wwwroot --overwrite=true --content-encoding="GZip" --pattern="*.js" --content-type="application/javascript"
-            az storage blob upload-batch --account-name mariogktop --auth-mode key -d '$web' -s ./publish/wwwroot --overwrite=true --content-encoding="GZip" --pattern="*.css" --content-type="text/css"
-            az storage blob upload-batch --account-name mariogktop --auth-mode key -d '$web' -s ./publish/wwwroot --overwrite=true --content-encoding="GZip" --pattern="*.html" --content-type="text/html"
+            az storage blob upload-batch --account-name mariogktop --auth-mode key -d '$web' -s ./publish/wwwroot --overwrite=true --content-encoding="gzip" --pattern="*.gz" --content-type="application/octet-stream"
+            az storage blob upload-batch --account-name mariogktop --auth-mode key -d '$web' -s ./publish/wwwroot --overwrite=true --content-encoding="gzip" --pattern="*.js" --content-type="application/javascript"
+            az storage blob upload-batch --account-name mariogktop --auth-mode key -d '$web' -s ./publish/wwwroot --overwrite=true --content-encoding="gzip" --pattern="*.css" --content-type="text/css"
+            az storage blob upload-batch --account-name mariogktop --auth-mode key -d '$web' -s ./publish/wwwroot --overwrite=true --content-encoding="gzip" --pattern="*.html" --content-type="text/html"
 
       - name: Purge CDN endpoint
         uses: azure/CLI@v1
