@@ -8,7 +8,7 @@ public class LocalDataProvider : BaseDataProvider, IDataProvider
 
     public LocalDataProvider()
     {
-        SkillsData   = YamlDeserializer.Deserialize<List<SkillData>>(File.ReadAllText(Path.Combine(_dataDir, "Skills.yaml")));
+        SkillsData   = YamlDeserializer.Deserialize<List<SkillData>>(File.ReadAllText(Path.Combine(_dataDir, "CV", "Skills.yaml")));
         LanguageData = YamlDeserializer.Deserialize<List<SkillData>>(File.ReadAllText(Path.Combine(_dataDir, "Languages.yaml")));
     }
 

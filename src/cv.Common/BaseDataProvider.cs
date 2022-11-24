@@ -16,8 +16,6 @@ public abstract class BaseDataProvider
     public List<SkillData> SkillsData   { get; set; }
     public List<SkillData> LanguageData { get; set; }
 
-    public CVType SelectedType { get; set; } = CVType.Developer;
-    
     /// <summary>
     /// List of all the localizations, key being the language
     /// </summary>
@@ -58,10 +56,10 @@ public abstract class BaseDataProvider
 
     protected void NotifyLocalizationChange(Language language)
     {
-        var cvData = CVData.FirstOrDefault(x => x.Language == language && x.Type == SelectedType);
+        var cvData = CVData.FirstOrDefault(x => x.Language == language);
         if (cvData == null)
         {
-            Console.WriteLine($"No CV data for {language} and {SelectedType}");
+            Console.WriteLine($"No CV data for {language}");
             return;
         }
         
@@ -87,14 +85,14 @@ public abstract class BaseDataProvider
             LocalizationData.Add(language, localizationData);
         }
 
-        var existingCvData = CVData.FirstOrDefault(x => x.Language == language && x.Type == SelectedType);
+        var existingCvData = CVData.FirstOrDefault(x => x.Language == language);
         if (existingCvData != null)
         {
             NotifyLocalizationChange(language);
             return;
         }
 
-        var cvData = await GetFromYamlAsync<CVData>($"Data/CVs/{SelectedType.ToString()}/{language}.yaml");
+        var cvData = await GetFromYamlAsync<CVData>($"Data/CV/{language}.yaml");
         cvData.Language = language;
         CVData.Add(cvData);
         NotifyLocalizationChange(language);

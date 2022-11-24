@@ -22,7 +22,7 @@ public class WebDataProvider : BaseDataProvider, IDataProvider
     {
         if (!SkillsData.Any())
         {
-            SkillsData = await GetFromYamlAsync<List<SkillData>>("Data/Skills.yaml");
+            SkillsData = await GetFromYamlAsync<List<SkillData>>($"Data/CV/Skills.yaml");
         }
 
         if (!LanguageData.Any())

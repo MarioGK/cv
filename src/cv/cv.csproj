@@ -23,6 +23,12 @@
         <ProjectReference Include="..\cv.Common\cv.Common.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\Data\CVs\DevOps\English.yaml" />
+      <_ContentIncludedByDefault Remove="wwwroot\Data\CVs\DevOps\Portugues.yaml" />
+      <_ContentIncludedByDefault Remove="wwwroot\Data\CVs\DevOps\Skills.yaml" />
+    </ItemGroup>
+
 
 
 </Project>
