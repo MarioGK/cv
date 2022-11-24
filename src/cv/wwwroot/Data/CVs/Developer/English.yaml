@@ -6,6 +6,17 @@ Introduction: |
   I love to learn and research new things related to computers, software development and electronics.
   My favorite pastime activity is to read books and play games.
 Experiences:
+  - Company: InvoiSys
+    Position: Senior Developer & DevOps Engineer
+    StartDate: '2022-09-20T05:12:13.853+00:00'
+    EndDate: '2022-11-22T05:12:13.853+00:00'
+    Description: |
+      I architected and developed the backend of the company's main product, which is a web application for managing invoices.
+      Kubernetes was used to deploy the application in the cloud using AWS EKS, Istio was used to create the communication mesh between all the microservices.
+      Installed and configured gitlab to be used as a CI/CD tool, created a dynamic pipeline which all services are using to be deployed automatically.
+      Developed a pretty broad SDK to use internally in the company, which is used in all the microservices.
+      Created multiple microservices and APIs using .NET Core 7.
+      Helped to on board and teach new developers.
   - Company: Tech9
     Position: DevOps Engineer
     StartDate: '2022-03-08T05:12:13.853+00:00'

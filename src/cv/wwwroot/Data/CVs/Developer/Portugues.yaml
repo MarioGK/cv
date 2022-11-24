@@ -6,6 +6,17 @@ Introduction: |
   Adoro aprender e pesquisar coisas novas relacionadas a computadores, desenvolvimento de software e eletrônica.
   Meu passatempo favorito é ler livros e jogar videogames.
 Experiences:
+  - Company: InvoiSys
+    Position: Senior Developer & DevOps Engineer
+    StartDate: '2022-09-20T05:12:13.853+00:00'
+    EndDate: '2022-11-22T05:12:13.853+00:00'
+    Description: |
+      Arquitetei e desenvolvi o back-end do principal produto da empresa, que é uma aplicação web para gerenciamento de notas fiscais.
+      O Kubernetes foi usado para implantar o aplicativo na nuvem usando o AWS EKS, o Istio foi usado para criar a malha de comunicação entre todos os microsserviços.
+      Instalei e configurei o Gitlab para ser usado como ferramenta CI/CD, criei um pipeline dinâmico que todos os serviços estão usando para serem implantados em produção automaticamente.
+      Desenvolvi uma SDK bastante ampla para uso interno na empresa, que é utilizado em todos os microsserviços.
+      Criei vários microsserviços e APIs usando .NET Core 7.
+      Ajudei a ensinar e integrar novos desenvolvedores ao time.
   - Company: Tech9
     Position: DevOps Engineer
     StartDate: '2022-03-08T05:12:13.853+00:00'
