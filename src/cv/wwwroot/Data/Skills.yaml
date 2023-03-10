@@ -1,29 +1,49 @@
 ﻿---
-- Name: C#
+- Name: C# (.NET)
   Level: 10
-- Name: .NET
-  Level: 9
 - Name: ASP.NET
   Level: 9
 - Name: Blazor
   Level: 8
+- Name: xUnit
+  Level: 8
+- Name: Git
+  Level: 8
 - Name: AWS
+  Level: 8
+- Name: MongoDB
+  Level: 8
+- Name: Docker
+  Level: 8
+- Name: Azure Functions
+  Level: 8
+- Name: SQS
+  Level: 8
+- Name: SQL (Postgres)
   Level: 7
-- Name: SQL
+- Name: Github Actions
   Level: 7
+- Name: Gitlab CI
+  Level: 7
+- Name: Kubernetes
+  Level: 7
+- Name: Lambda
+  Level: 7
+- Name: Pulumi
+  Level: 7
+- Name: GraphQL
+  Level: 7
+- Name: RabbitMQ
+  Level: 7
+- Name: SignalR
+  Level: 6
+- Name: Redis
+  Level: 6
 - Name: Azure
   Level: 6
-- Name: TypeScript
+- Name: TypeScript/JavaScript
   Level: 6
-- Name: JavaScript
-  Level: 5
 - Name: Python
   Level: 5
-- Name: HTML
+- Name: HTML/CSS
   Level: 5
-- Name: CSS
-  Level: 5
-- Name: C++
-  Level: 4
-- Name: PHP
-  Level: 2
