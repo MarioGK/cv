@@ -6,25 +6,31 @@ Introduction: |
   I love to learn and research new things related to computers, software development and electronics.
   My favorite pastime activity is reading books and playing games.
 Experiences:
+  - Company: XPand
+    Position: Senior Developer
+    StartDate: '2022-09-20T05:12:13.853+00:00'
+    EndDate: '2023-04-10T05:12:13.853+00:00'
+    Description: |
+      I dedicated my efforts to the development of diverse microservices, APIs, and Azure Functions in the context of a banking system. My primary responsibility involved the establishment of the backend infrastructure for facilitating the onboarding process of new users within the mobile application.
+      In the course of my work, I engineered these microservices to establish seamless communication channels with both internal and external APIs. Furthermore, I designed APIs that facilitated the interaction between the mobile application and the banking system. Additionally, I harnessed the power of Azure Functions to automate critical tasks, thereby enhancing the scalability and overall performance of the application.
   - Company: InvoiSys
     Position: Senior Developer & DevOps Engineer
     StartDate: '2022-09-20T05:12:13.853+00:00'
     EndDate: '2023-04-10T05:12:13.853+00:00'
     Description: |
-      I architected and developed the backend of the company's main product, which is a web application for managing invoices.
-      Kubernetes was used to deploy the application in the cloud using AWS EKS, Istio was used to create the communication mesh between all the microservices.
-      Installed and configured gitlab to be used as a CI/CD tool, created a dynamic pipeline which all services are using to be deployed automatically.
-      Developed a pretty broad SDK to use internally in the company, which is used in all the microservices.
-      Created multiple microservices and minimal APIs using .NET Core 7.
-      Helped to on boarding and teaching new developers.
+      I designed and built the core infrastructure of the company's primary product—an online application for invoice management.
+      We employed Kubernetes for deploying the application on the cloud via AWS Elastic Kubernetes Service (EKS). To facilitate seamless communication among the various microservices, Istio was put into action.
+      I implemented and configured GitLab to serve as our CI/CD (Continuous Integration/Continuous Deployment) tool. This encompassed the creation of a dynamic pipeline that automates the deployment process for all our services, enhancing our development workflow.
+      As part of our internal tools, I developed a comprehensive SDK for use throughout the organization, serving as a vital component across all our microservices.
+      Furthermore, I was responsible for crafting multiple microservices and lightweight APIs using .NET Core 7. Additionally, I played a role in the onboarding process and provided guidance to new developers, contributing to their successful integration into the team.
   - Company: Tech9 (Freelance)
     Position: DevOps Engineer
     StartDate: '2022-03-08T05:12:13.853+00:00'
     EndDate: '2022-07-11T05:12:13.853+00:00'
     Description: |
-      I integrated Redis as a caching system for their scrapping service and RabbitMQ using Celery as the api for queuing up tasks.
-      Reconstructed and remodeled their whole infrastructure to AWS.
-      Used Pulumi to create the infrastructure as code and Github Actions to auto deploy their app to production.
+      I implemented Redis as a caching system to enhance the efficiency of their scraping service, and I incorporated RabbitMQ, managed through Celery, to serve as the API for task queuing.
+      In a comprehensive effort, I undertook the reconstruction and remodeling of their entire infrastructure, seamlessly migrating it to the AWS cloud platform. This transition significantly improved the scalability and reliability of their operations.
+      To further optimize the project, I harnessed the capabilities of Pulumi, enabling the creation of infrastructure as code to efficiently manage and automate infrastructure deployments. The integration of GitHub Actions further streamlined the process, facilitating the automatic deployment of their application to the production environment.
   - Company: Hospital Ophir Loyola (Freelance)
     Position: Software Engineer
     StartDate: '2021-01-13T05:12:13.853+00:00'
@@ -32,48 +38,29 @@ Experiences:
     #ImagesDir: HospitalManager
     #ImageCount: 5 # Number of images in the ImagesDir, Maybe there is a better way to do this?
     Description: |
-      I created tasks and them distributed to the team according to their skills, and made multiple contributions to the
-      backend.
-      The project was a full stack application using C#, ASP.NET, a C# UI framework called Blazor and a C#
-      framework for SQL called EF Core, a fully featured management system of documents, appointments,
-      medical equipments/materials, calendar system and report statistical reports.
-      One of my key contributions to the project was a modular component called AutoForm which built
-      forms and forms within modal dialogs passing only the Type, it would automatically fetch the data from
-      the SQL database, and save it automatically as well, this was a huge time saver.
-      GIT was used to facilitate the collaboration between the team members.
-      The project is used daily by thousands of employees without any issues.
+      In this project, I undertook the responsibilities of task creation and assignment, ensuring tasks were delegated to the team based on their individual skill sets. My contributions extended significantly into the backend development.
+      The project was an extensive full-stack application encompassing C#, ASP.NET, and Blazor as the UI framework, with EF Core for SQL database interactions. This comprehensive system functioned as a fully featured management platform, addressing document handling, appointment scheduling, medical equipment/materials management, calendar systems, and statistical reporting.
+      A noteworthy contribution I made was the development of a modular component named "AutoForm." This innovative component streamlined the creation of forms and modal dialogs, requiring only the specification of the data type. It seamlessly retrieved and saved data from the SQL database, resulting in substantial time savings.
+      Throughout the project, effective collaboration was facilitated through the utilization of GIT, ensuring efficient teamwork. The project is currently in active daily use by a substantial user base of thousands of employees, marked by its exceptional reliability and seamless performance.
   - Company: Loja DasGringas (Freelance)
     Position: Software Engineer
     StartDate: '2020-08-18T05:12:13.853+00:00'
     EndDate: '2020-12-28T05:12:13.853+00:00'
     Description: |
-      The project was a an easy to use stock management and point of sales system made using WPF as its UI framework.
-      Which included features such as printing labels, printing receipts, warnings like low stock of a certain
-      item and an easy to use Interface.
-      ASP.NET core was used for the backend.
-      I used Gitlab CI to auto deploy new changes made in the master branch.
+      The project encompassed the development of an intuitively designed stock management and point-of-sale system. It featured a WPF-based user interface, providing a user-friendly experience for efficient operations.
+      The system boasted an array of capabilities, including label and receipt printing, real-time notifications for low stock levels, and an intuitive interface, enhancing user productivity. On the backend, we employed ASP.NET Core, ensuring robust data processing and seamless functionality.
+      To streamline the development process, I effectively employed GitLab CI to automatically deploy new updates and changes originating from the master branch, enhancing project efficiency and ensuring a consistent, reliable release cycle.
   - Company: MayconCT (Freelance)
     Position: Software Engineer
     StartDate: '2020-03-15T05:12:13.853+00:00'
     EndDate: '2020-07-26T05:12:13.853+00:00'
     Description: |
-      Flutter was used as the UI framework for the project.
-      The project was published on the play store, the app store and as an web app.
-      ASP.NET core was used to make the backend and API.
-      GIT was used to trigger a Gitlab CI job and handle all the functional tests and automatic deployment to the stores and website.
+      The project leveraged Flutter as the primary user interface framework, ensuring a robust and modern user experience. This multi-platform application was successfully published on prominent app distribution platforms, including the Play Store and the App Store, while also being accessible as a web application.
+      On the backend, ASP.NET Core was utilized to craft a resilient and efficient infrastructure, underpinning the application's functionality and data processing. The project's development process was expertly managed through the version control system GIT, enabling seamless integration with GitLab CI for automated testing and deployment across various platforms, including app stores and the web.
   - Company: Hilariante
     Position: Software Engineer
     StartDate: '2016-04-10T05:12:13.853+00:00'
     EndDate: '2020-02-28T05:12:13.853+00:00'
     Description: |
-      The project was designed to read information from memory of a legacy 3rd party software, and make a
-      scripting API so logics and interfaces could be written in C#.
-      The team used many technologies to accomplish this, C++ was used to read the memory and host a
-      .NET environment, C++/CLI was used to make the C# library as a "glue" to marshal C++ data to C#, 
-      we used AppDomains in C# to make a sandboxed environment which scripts and programs could run isolated and safely.
-      My contributions to the project were:
-        Observed progress of each project and analyzed the code.
-        Defined responsibilities, duties, and roles of each team member.
-      The outcome was a heavily optimized API, which was pretty easy to use and create more features
-      using a legacy software that would have to be rewritten from scratch to accomplish the same thing, we
-      saved a lot of developer's time.
+      The project was devised to extract data from the memory of a legacy 3rd-party software and establish a scripting API for the purpose of developing logic and interfaces in C#. The project team skillfully employed a range of technologies, including C++ for memory access and hosting a .NET environment, C++/CLI to serve as a "glue" facilitating data marshalling from C++ to C#, and the implementation of AppDomains in C# to create a secure and isolated environment for executing scripts and programs.
+      In this project, my contributions included closely monitoring the progress of each subproject and conducting in-depth code analysis. I also played a pivotal role in defining the responsibilities, duties, and roles of each team member, ensuring efficient collaboration. As a result, we successfully delivered a highly optimized API, providing a user-friendly interface to extend the capabilities of the legacy software. This achievement notably saved a substantial amount of development time that would otherwise have been required for a complete rewrite.
