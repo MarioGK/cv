@@ -130,7 +130,7 @@ foreach (var language in languages)
     fontFiles.ForEach(font => FontManager.RegisterFont(File.OpenRead(font)));
 
     var metaData = DocumentMetadata.Default;
-    metaData.ImageQuality = 90;
+    //metaData.ImageQuality = 90;
     document.WithMetadata(metaData);
 
     Directory.CreateDirectory(outputDir);

@@ -1,7 +1,7 @@
 ﻿
 @inject IDataProvider Localization
 
-<Collapsable Class="mt-4" Title="@Localization.Get("Languages")" Icon="@Icons.Outlined.Translate">
+<Collapsable Class="mt-4" Title="@Localization.Get("Languages")" Icon="@Icons.Material.Outlined.Translate">
     <div class="pa-2">
         @foreach (var language in Localization.LanguageData)
         {
