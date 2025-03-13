@@ -19,6 +19,8 @@ jobs:
         with:
           submodules: true
           lfs: false
+      - name: Generate PDF
+        run: dotnet run --project ./src/cv.PdfGenerator/cv.PdfGenerator.csproj --configuration Release
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
