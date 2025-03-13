@@ -9,7 +9,7 @@ public class WebDataProvider : BaseDataProvider, IDataProvider
 
     public WebDataProvider(HttpClient httpClient)
     {
-        _httpClient  = httpClient;
+        _httpClient = httpClient;
     }
 
     public override async Task<T> GetFromYamlAsync<T>(string url)

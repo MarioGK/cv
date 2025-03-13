@@ -29,7 +29,8 @@
 
             <MudSpacer/>
 
-            <MudIconButton Class="pa-0 mt-2" OnClick='async () => await Localization.ChangeLanguage(Language.Portugues)'>
+            <MudIconButton Class="pa-0 mt-2"
+                           OnClick='async () => await Localization.ChangeLanguage(Language.Portugues)'>
                 <CountryFlag Country="Country.BR" Size="FlagSize.Normal"/>
             </MudIconButton>
 
@@ -37,7 +38,8 @@
                 <CountryFlag Country="Country.US" Size="FlagSize.Normal"/>
             </MudIconButton>
             <MudDivider Vertical="true" FlexItem="true" Class="my-2"/>
-            <MudIconButton Icon="@(_darkMode ? Icons.Filled.LightMode : Icons.Filled.DarkMode)" OnClick="ToggleMode" Color="Color.Inherit"/>
+            <MudIconButton Icon="@(_darkMode ? Icons.Filled.LightMode : Icons.Filled.DarkMode)" OnClick="ToggleMode"
+                           Color="Color.Inherit"/>
             <MudIconButton Icon="@Icons.Filled.Print" Color="Color.Inherit" OnClick="Print"/>
         </MudAppBar>
         <MudMainContent>
@@ -70,11 +72,11 @@ else
     {
         try
         {
-            await JsRuntime.InvokeAsync<object>("open", $"https://cv.mariogk.top/pdfs/{Localization.SelectedCVData.Language}.pdf", "_blank");
+            await JsRuntime.InvokeAsync<object>("open", $"https://cv.mariogk.com/pdfs/{Localization.SelectedCVData?.Language}.pdf", "_blank");
         }
         catch (Exception)
         {
-    //Ignore errors if any
+            //Ignore errors if any
         }
     }
 

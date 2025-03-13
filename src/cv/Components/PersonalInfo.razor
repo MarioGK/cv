@@ -2,7 +2,9 @@
 
 <Collapsable Title="@Localization.Get("PersonalInfo")" Icon="@Icons.Outlined.Person">
     <div class="pa-2">
-            @foreach (var personalInfo in Localization.SelectedPersonalInfo)
+        @if (Localization.SelectedPersonalInfo != null)
+        {
+            foreach (var personalInfo in Localization.SelectedPersonalInfo)
             {
                 <MudGrid>
                     <MudItem xs="6">
@@ -13,6 +15,7 @@
                     </MudItem>
                 </MudGrid>
             }
+        }
     </div>
 </Collapsable>
 

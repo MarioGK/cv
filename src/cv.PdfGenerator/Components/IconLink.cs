@@ -6,12 +6,12 @@ public static class IconLinkComponent
 {
     private static readonly Dictionary<string, string> Icons = new()
     {
-        ["mail"]     = "",
-        ["phone"]    = "",
-        ["github"]   = "",
+        ["mail"] = "",
+        ["phone"] = "",
+        ["github"] = "",
         ["whatsapp"] = "",
         ["linkedin"] = "",
-        ["web"]      = ""
+        ["web"] = ""
     };
 
     public static void IconLink(this ColumnDescriptor container, string icon, string text, string url)

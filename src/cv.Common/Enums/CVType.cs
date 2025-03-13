@@ -3,5 +3,5 @@
 public enum CVType
 {
     Developer,
-    DevOps,
+    DevOps
 }

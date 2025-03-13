@@ -12,7 +12,7 @@
                         @exp.Title
                     </MudText>
                     <MudText Style="font-weight: normal;font-size: 1.2rem;color:#ecebf7;">
-                        @exp.StartDate.ToString(Localization.SelectedLocalization.DateFormat) - @exp.EndDate.ToString(Localization.SelectedLocalization.DateFormat)
+                        @exp.StartDate.ToString(Localization.SelectedLocalization?.DateFormat) - @exp.EndDate.ToString(Localization.SelectedLocalization?.DateFormat)
                     </MudText>
                 </div>
             </TitleContent>
@@ -51,11 +51,11 @@ else
 
 @code {
 
-#if DEBUG
+    #if DEBUG
     private string BaseUrlImages = "https://localhost:5001/Images/Projects/HospitalManager/";
-#else
-    private string BaseUrlImages = "https://cv.mariogk.top/Images/Projects/HospitalManager/";
-#endif
+    #else
+    private string BaseUrlImages = "https://cv.mariogk.com/Images/Projects/HospitalManager/";
+    #endif
 
     protected override Task OnInitializedAsync()
     {

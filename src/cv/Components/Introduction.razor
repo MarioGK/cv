@@ -2,10 +2,11 @@
 
 <div class="mx-4 my-4 px-4 pt-4 rounded-lg" style="background: #594ae2ff; color: white">
     <div class="d-flex flex-grow-1 justify-space-between gap-4 pb-4">
-        <MudImage Src="Data/Images/Profile.jpg" Alt="Profile Picture" Width="100" Style="max-width: 100px; max-height:120px" Class="rounded-lg "/>
+        <MudImage Src="Data/Images/Profile.jpg" Alt="Profile Picture" Width="100"
+                  Style="max-width: 100px; max-height:120px" Class="rounded-lg "/>
 
         <MudText Style="white-space: pre-line">
-            @Localization.SelectedCVData.Introduction
+            @Localization.SelectedCVData?.Introduction
         </MudText>
 
         <div>
@@ -15,7 +16,8 @@
             </MudText>
             <MudText Class="d-flex">
                 <MudIcon Class="mr-2" Icon="@Icons.Custom.Brands.LinkedIn"/>
-                <a href="https://www.linkedin.com/in/m%C3%A1rio-gabriell-karaziaki-belchior-0a271814b/" style="color: white" target="_blank">Linkedin</a>
+                <a href="https://www.linkedin.com/in/m%C3%A1rio-gabriell-karaziaki-belchior-0a271814b/"
+                   style="color: white" target="_blank">Linkedin</a>
             </MudText>
             <MudText Class="d-flex">
                 <MudIcon Class="mr-2" Icon="@Icons.Outlined.Email"/>
@@ -27,7 +29,8 @@
             </MudText>
             <MudText Class="d-flex">
                 <MudIcon Class="mr-2" Icon="@Icons.Filled.Whatsapp"/>
-                <a href="https://api.whatsapp.com/send?phone=5544999758367&text=Oi, Mario" style="color: white" target="_blank">WhatsApp</a>
+                <a href="https://api.whatsapp.com/send?phone=5544999758367&text=Oi, Mario" style="color: white"
+                   target="_blank">WhatsApp</a>
             </MudText>
         </div>
     </div>

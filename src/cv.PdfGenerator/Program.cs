@@ -6,12 +6,12 @@ using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 
 #if DEBUG
-var outputDir  = "pdfs\\";
+var outputDir = "pdfs\\";
 #else
 var outputDir = $"{Directory.GetCurrentDirectory()}/publish/wwwroot/pdfs/";
 #endif
 
-var fontsDir     = Path.Combine(AppContext.BaseDirectory, "Fonts");
+var fontsDir = Path.Combine(AppContext.BaseDirectory, "Fonts");
 var profileImage = Path.Combine(AppContext.BaseDirectory, "Data", "Images", "Profile.jpg");
 
 var data = new LocalDataProvider();
@@ -21,7 +21,7 @@ var languages = Enum.GetValues(typeof(Language)).Cast<Language>();
 foreach (var language in languages)
 {
     await data.ChangeLanguage(language);
-    var cv = data.SelectedCVData;
+    var cv = data.SelectedCVData ?? throw new Exception($"No CV data for {language} and {data.SelectedType}");
     Console.WriteLine($"Generating PDF for {language}...");
 
     var document = Document.Create(container =>
@@ -57,23 +57,28 @@ foreach (var language in languages)
 
                          introRow.RelativeItem().Column(c =>
                          {
-                             foreach (var p in data.SelectedPersonalInfo)
-                                 c.Item().Row(r =>
+                             if (data.SelectedPersonalInfo != null)
+                             {
+                                 foreach (var p in data.SelectedPersonalInfo)
                                  {
-                                     //r.Spacing(5);
-                                     r.RelativeItem().Text($"{data.Get(p.Key)}:").SemiBold();
-                                     r.RelativeItem().Text(p.Value);
-                                 });
+                                     c.Item().Row(r =>
+                                     {
+                                         //r.Spacing(5);
+                                         r.RelativeItem().Text($"{data.Get(p.Key)}:").SemiBold();
+                                         r.RelativeItem().Text(p.Value);
+                                     });
+                                 }
+                             }
                          });
 
                          introRow.AutoItem().AlignRight().Column(cr =>
                          {
-                             cr.IconLink("web",    "WebSite", "https://cv.mariogk.top/");
-                             cr.IconLink("github", "Github",  "https://github.com/MarioGK");
+                             cr.IconLink("web", "WebSite", "https://cv.mariogk.com/");
+                             cr.IconLink("github", "Github", "https://github.com/MarioGK");
                              cr.IconLink("linkedin", "Linkedin",
                                          "https://www.linkedin.com/in/m%C3%A1rio-gabriell-karaziaki-belchior-0a271814b/");
-                             cr.IconLink("mail",  "mariogk01@gmail.com", "mailto:mariogk01@gmail.com");
-                             cr.IconLink("phone", "+55 44 999758367",    "tel:+5544999758367");
+                             cr.IconLink("mail", "mariogk01@gmail.com", "mailto:mariogk01@gmail.com");
+                             cr.IconLink("phone", "+55 44 999758367", "tel:+5544999758367");
                              cr.IconLink("whatsapp", "WhatsApp",
                                          "https://api.whatsapp.com/send?phone=5544999758367&text=Oi, Mario");
                          });
@@ -81,7 +86,7 @@ foreach (var language in languages)
 
                      //Introduction
                      column.Title("Introduction");
-                     column.Item().Text(cv.Introduction);
+                     column.Item().Text(cv?.Introduction);
 
                      column.Spacing(5);
 
@@ -93,7 +98,10 @@ foreach (var language in languages)
 
                      column.Title(data.Get("Experiences"));
                      //Experiences
-                     foreach (var exp in cv.Experiences) column.Experience(exp, data.SelectedLocalization.DateFormat);
+                     foreach (var exp in cv!.Experiences)
+                     {
+                         column.Experience(exp, data.SelectedLocalization!.DateFormat);
+                     }
                  });
 
             page.Footer()
@@ -106,11 +114,11 @@ foreach (var language in languages)
                      c.Item().Row(row =>
                      {
                          row.AutoItem().Text("*This PDF was automatically generated from ");
-                         row.AutoItem().Hyperlink("https://cv.mariogk.top/").Text("cv.mariogk.top")
+                         row.AutoItem().Hyperlink("https://cv.mariogk.com/").Text("cv.mariogk.com")
                             .FontColor(Colors.Blue.Darken1);
                          row.AutoItem()
                             .Text(" for a better experience and the most updated information or other languages please visit the ");
-                         row.AutoItem().Hyperlink("https://cv.mariogk.top/").Text("website.")
+                         row.AutoItem().Hyperlink("https://cv.mariogk.com/").Text("website.")
                             .FontColor(Colors.Blue.Darken1);
                      });
                  });
@@ -130,7 +138,6 @@ foreach (var language in languages)
     document.GeneratePdf($"{outputDir}{fileName}");
     Console.WriteLine($"Generated {fileName}!");
 }
-
 
 
 Console.WriteLine("Finished!");

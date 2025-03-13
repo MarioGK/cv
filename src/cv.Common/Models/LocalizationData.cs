@@ -2,6 +2,6 @@
 
 public class LocalizationData
 {
-    public string                    DateFormat   { get; set; }
-    public Dictionary<string,string> Translations { get; set; }
+    public required string DateFormat { get; set; }
+    public required Dictionary<string, string> Translations { get; set; }
 }
