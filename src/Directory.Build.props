@@ -1,0 +1,21 @@
+<Project>
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>preview</LangVersion>
+
+        <Authors>MarioGK</Authors>
+
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <AnalysisLevel>preview</AnalysisLevel>
+
+        <NoWarn>MUD0002;NU1903;NU1101;NU1902</NoWarn>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <SolutionDirectory>$(MSBuildThisFileDirectory.TrimEnd('\\'))</SolutionDirectory>
+    </PropertyGroup>
+
+
+</Project> 
