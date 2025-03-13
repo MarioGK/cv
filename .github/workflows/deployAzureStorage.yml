@@ -12,6 +12,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 9.0.x
+
       # Generate all the PDFs
       - name: Generate PDF
         run: dotnet run --project ./src/cv.PdfGenerator/cv.PdfGenerator.csproj --configuration Release
