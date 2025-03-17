@@ -25,13 +25,22 @@ jobs:
       - name: Build WASM
         run: dotnet publish ./src/cv -c Release -o ./publish
 
-      - name: Upload to blob storage
+      - name: Sync to blob storage
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            az storage blob upload-batch --connection-string "${{ secrets.AZURE_STORAGE_ACCOUNT_CONNECTION_STRING }}" -d '$web' -s ./publish/wwwroot --overwrite=true
+            az storage blob sync \
+            --connection-string "${{ secrets.AZURE_STORAGE_ACCOUNT_CONNECTION_STRING }}" \
+            -c '$web' \
+            -s ./publish/wwwroot
 
-      - name: Upload GZIP files to blob storage
+      - name: az storage blob sync --connection-string "${{ secrets.AZURE_STORAGE_ACCOUNT_CONNECTION_STRING }}" -c '$web' -s ./publish/wwwroot
         uses: azure/CLI@v1
         with:
-          inlineScript: az storage blob upload-batch --connection-string "${{ secrets.AZURE_STORAGE_ACCOUNT_CONNECTION_STRING }}" -d '$web' -s ./publish/wwwroot --overwrite=true --content-encoding="gzip" --pattern="*.gz" --content-type="application/octet-stream"
+          inlineScript: |
+            az storage blob update-batch \
+            --connection-string "${{ secrets.AZURE_STORAGE_ACCOUNT_CONNECTION_STRING }}" \
+            -c '$web' \
+            --pattern "*.gz" \
+            --content-encoding "gzip" \
+            --content-type "application/octet-stream"
