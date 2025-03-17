@@ -29,9 +29,9 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            az storage blob upload-batch --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}" -d '$web' -s ./publish/wwwroot --overwrite=true
+            az storage blob upload-batch --connection-string "${{ secrets.AZURE_STORAGE_ACCOUNT_CONNECTION_STRING }}" -d '$web' -s ./publish/wwwroot --overwrite=true
 
       - name: Upload GZIP files to blob storage
         uses: azure/CLI@v1
         with:
-          inlineScript: az storage blob upload-batch --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}" -d '$web' -s ./publish/wwwroot --overwrite=true --content-encoding="gzip" --pattern="*.gz" --content-type="application/octet-stream"
+          inlineScript: az storage blob upload-batch --connection-string "${{ secrets.AZURE_STORAGE_ACCOUNT_CONNECTION_STRING }}" -d '$web' -s ./publish/wwwroot --overwrite=true --content-encoding="gzip" --pattern="*.gz" --content-type="application/octet-stream"
