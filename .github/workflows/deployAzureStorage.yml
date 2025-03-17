@@ -21,27 +21,17 @@ jobs:
       - name: Generate PDF
         run: dotnet run --project ./src/cv.PdfGenerator/cv.PdfGenerator.csproj --configuration Release
 
-        # Build the website
+      # Build the website
       - name: Build WASM
         run: dotnet publish ./src/cv -c Release -o ./publish
 
       - name: Upload to blob storage
-        uses: bacongobbler/azure-blob-storage-upload@main
+        uses: azure/CLI@v1
         with:
-          source_dir: ./publish/wwwroot
-          container_name: $web
-          connection_string: ${{ secrets.AZURE_STORAGE_ACCOUNT_CONNECTION_STRING }}
-          #extra_args: '--pattern *.tar.gz'
-          # WARNING: this will overwrite existing blobs in your blob storage
-          overwrite: 'true'
-          sync: 'true'
+          inlineScript: |
+            az storage blob upload-batch --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}" -d '$web' -s ./publish/wwwroot --overwrite=true
 
-      - name: Upload to blob storage GZIP files with correct encoding type
-        uses: bacongobbler/azure-blob-storage-upload@main
+      - name: Upload GZIP files to blob storage
+        uses: azure/CLI@v1
         with:
-          source_dir: ./publish/wwwroot
-          container_name: $web
-          connection_string: ${{ secrets.AZURE_STORAGE_ACCOUNT_CONNECTION_STRING }}
-          extra_args: '--content-encoding="gzip" --pattern="*.gz" --content-type="application/octet-stream"'
-          overwrite: 'true'
-          #sync: 'true'
+          inlineScript: az storage blob upload-batch --connection-string "${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}" -d '$web' -s ./publish/wwwroot --overwrite=true --content-encoding="gzip" --pattern="*.gz" --content-type="application/octet-stream"
