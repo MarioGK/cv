@@ -80,7 +80,7 @@ foreach (var language in languages)
                              cr.IconLink("linkedin", "Linkedin",
                                          "https://www.linkedin.com/in/m%C3%A1rio-gabriell-karaziaki-belchior-0a271814b/");
                              cr.IconLink("mail", "mariogk01@gmail.com", "mailto:mariogk01@gmail.com");
-                             cr.IconLink("phone", "+55 44 999758367", "tel:+5544999758367");
+                             cr.IconLink("phone", "+351 933557967", "tel:+5544999758367");
                              cr.IconLink("whatsapp", "WhatsApp",
                                          "https://api.whatsapp.com/send?phone=5544999758367&text=Oi, Mario");
                          });
