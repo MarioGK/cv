@@ -34,13 +34,17 @@ jobs:
             -c '$web' \
             -s ./publish/wwwroot
 
-      - name: az storage blob sync --connection-string "${{ secrets.AZURE_STORAGE_ACCOUNT_CONNECTION_STRING }}" -c '$web' -s ./publish/wwwroot
+      - name: Set properties for GZIP files
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            az storage blob update-batch \
-            --connection-string "${{ secrets.AZURE_STORAGE_ACCOUNT_CONNECTION_STRING }}" \
-            -c '$web' \
-            --pattern "*.gz" \
-            --content-encoding "gzip" \
-            --content-type "application/octet-stream"
+            # List all .gz files and update their properties one by one
+            for file in $(find ./publish/wwwroot -name "*.gz"); do
+              relative_path=${file#./publish/wwwroot/}
+              az storage blob update \
+                --connection-string "${{ secrets.AZURE_STORAGE_ACCOUNT_CONNECTION_STRING }}" \
+                --container-name '$web' \
+                --name "$relative_path" \
+                --content-encoding "gzip" \
+                --content-type "application/octet-stream"
+            done
