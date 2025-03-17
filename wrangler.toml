@@ -1,2 +1,2 @@
 name = "cv-mariogk"
-pages_build_output_dir = "./publish"
+pages_build_output_dir = "./publish/wwwroot"
