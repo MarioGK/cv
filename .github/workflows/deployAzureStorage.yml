@@ -34,36 +34,20 @@ jobs:
             -c '$web' \
             -s ./publish/wwwroot
 
-      - name: Set properties for GZIP files
+      - name: Set GZIP content properties
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            # Find all .gz files
-            gz_files=$(find ./publish/wwwroot -name "*.gz")
-
-            # Set maximum number of parallel processes
-            max_processes=10
-            count=0
-
-            # Update properties in parallel
-            for file in $gz_files; do
-              relative_path=${file#./publish/wwwroot/}
-              az storage blob update \
-                --connection-string "${{ secrets.AZURE_STORAGE_ACCOUNT_CONNECTION_STRING }}" \
-                --container-name '$web' \
-                --name "$relative_path" \
-                --content-encoding "gzip" \
-                --content-type "application/octet-stream" &
-
-              # Increment process counter
-              ((count++))
-
-              # If we've reached max_processes, wait for them to complete
-              if [ $count -eq $max_processes ]; then
-                wait
-                count=0
-              fi
-            done
-
-            # Wait for any remaining processes
-            wait
+            # Find all .gz files and process in batches for better performance
+            find ./publish/wwwroot -name "*.gz" -print0 | xargs -0 -n 20 -P 10 -I {} bash -c '
+              for file in "$@"; do
+                relative_path=${file#./publish/wwwroot/}
+                echo "Processing $relative_path"
+                az storage blob update \
+                  --connection-string "${{ secrets.AZURE_STORAGE_ACCOUNT_CONNECTION_STRING }}" \
+                  --container-name "$web" \
+                  --name "$relative_path" \
+                  --content-encoding "gzip" \
+                  --content-type "application/octet-stream"
+              done
+            ' _ {}
