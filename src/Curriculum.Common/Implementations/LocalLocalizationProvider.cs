@@ -25,12 +25,7 @@ public class LocalLocalizationProvider : ILocalizationProvider
             return id;
         }
 
-        if (!SelectedLocalization.Translations.TryGetValue(id, out var value))
-        {
-            return id;
-        }
-
-        return value;
+        return SelectedLocalization.Translations.GetValueOrDefault(id, id);
     }
 
     public void NotifyLocalizationChange(Language language)

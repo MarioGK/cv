@@ -2,6 +2,7 @@ using Blazored.LocalStorage;
 using Curriculum;
 using Curriculum.Common;
 using Curriculum.Common.Interfaces;
+using Curriculum.Implementations;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazor;

@@ -4,25 +4,17 @@ using Curriculum.Common.Models;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
-namespace Curriculum;
+namespace Curriculum.Implementations;
 
-public class WebLocalizationProvider : ILocalizationProvider
+public class WebLocalizationProvider(HttpClient httpClient) : ILocalizationProvider
 {
-    private readonly HttpClient _httpClient;
     protected static readonly IDeserializer YamlDeserializer =
         new DeserializerBuilder().WithNamingConvention(PascalCaseNamingConvention.Instance).Build();
 
-    public WebLocalizationProvider(HttpClient httpClient)
-    {
-        _httpClient = httpClient;
-        LocalizationData = new Dictionary<Language, LocalizationData>();
-        PersonalData = new Dictionary<Language, Dictionary<string, string>>();
-    }
-
     public event ILocalizationProvider.LocalizationChangedDelegate? LocalizationChanged;
     public LocalizationData? SelectedLocalization { get; set; }
-    public Dictionary<Language, LocalizationData> LocalizationData { get; set; }
-    public Dictionary<Language, Dictionary<string, string>> PersonalData { get; set; }
+    public Dictionary<Language, LocalizationData> LocalizationData { get; set; } = new();
+    public Dictionary<Language, Dictionary<string, string>> PersonalData { get; set; } = new();
 
     public async Task ChangeLanguage(Language language = Language.English)
     {
@@ -48,12 +40,7 @@ public class WebLocalizationProvider : ILocalizationProvider
             return id;
         }
 
-        if (!SelectedLocalization.Translations.TryGetValue(id, out var value))
-        {
-            return id;
-        }
-
-        return value;
+        return SelectedLocalization.Translations.GetValueOrDefault(id, id);
     }
 
     public void NotifyLocalizationChange(Language language)
@@ -69,7 +56,7 @@ public class WebLocalizationProvider : ILocalizationProvider
 
     private async Task<T> GetFromYamlAsync<T>(string url)
     {
-        var data = await _httpClient.GetStringAsync(url);
+        var data = await httpClient.GetStringAsync(url);
         return YamlDeserializer.Deserialize<T>(data);
     }
 }

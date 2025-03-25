@@ -1,10 +1,8 @@
-﻿using Curriculum.Common;
-using Curriculum.Common.Base;
-using Curriculum.Common.Enums;
+﻿using Curriculum.Common.Base;
 using Curriculum.Common.Interfaces;
 using Curriculum.Common.Models;
 
-namespace Curriculum;
+namespace Curriculum.Implementations;
 
 public class WebCurriculumDataProvider : BaseCurriculumDataProvider, ICurriculumDataProvider
 {

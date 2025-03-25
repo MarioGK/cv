@@ -1,7 +1,8 @@
-﻿using cv.Common;
-using cv.Common.Enums;
-using cv.Common.Implementations;
-using cv.Common.Interfaces;
+﻿using Curriculum.Common;
+using Curriculum.Common.Enums;
+using Curriculum.Common.Implementations;
+using Curriculum.Common.Interfaces;
+using Curriculum.Common.Models;
 using Curriculum.PdfGenerator.Components;
 using QuestPDF.Drawing;
 using QuestPDF.Fluent;
@@ -35,7 +36,7 @@ foreach (var language in languages)
     // Load CV data for this language
     await LoadCVDataForLanguage(cvDataProvider, language);
     
-    var cv = cvDataProvider.SelectedCVData ?? throw new Exception($"No CV data for {language} and {cvDataProvider.SelectedType}");
+    var cv = cvDataProvider.SelectedCurriculumData ?? throw new Exception($"No CV data for {language} and {cvDataProvider.SelectedType}");
     Console.WriteLine($"Generating PDF for {language}...");
 
     var document = Document.Create(container =>
@@ -159,16 +160,16 @@ Console.WriteLine("Finished!");
 async Task LoadCVDataForLanguage(ICurriculumDataProvider provider, Language language)
 {
     // If CV data doesn't exist for this language and type, load it
-    if (provider.CVData == null || !provider.CVData.Any(x => x.Language == language && x.Type == provider.SelectedType))
+    if (provider.CurriculumData == null || !provider.CurriculumData.Any(x => x.Language == language && x.Type == provider.SelectedType))
     {
-        var cvData = await provider.GetFromYamlAsync<CVData>($"Data/CVs/{provider.SelectedType}/{language}.yaml");
-        cvData.Language = language;
-        provider.CVData ??= new List<CVData>();
-        provider.CVData.Add(cvData);
-        provider.SelectedCVData = cvData;
+        var curriculumData = await provider.GetFromYamlAsync<CurriculumData>($"Data/CVs/{provider.SelectedType}/{language}.yaml");
+        curriculumData.Language = language;
+        provider.CurriculumData ??= [];
+        provider.CurriculumData.Add(curriculumData);
+        provider.SelectedCurriculumData = curriculumData;
     }
     else
     {
-        provider.SelectedCVData = provider.CVData.FirstOrDefault(x => x.Language == language && x.Type == provider.SelectedType);
+        provider.SelectedCurriculumData = provider.CurriculumData.FirstOrDefault(x => x.Language == language && x.Type == provider.SelectedType);
     }
 }

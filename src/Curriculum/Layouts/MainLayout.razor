@@ -79,7 +79,7 @@ else
         try
         {
             var currentBaseUri = NavigationManager.BaseUri;
-            await JsRuntime.InvokeAsync<object>("open", $"https://{currentBaseUri}/pdfs/{CurriculumDataProvider.SelectedCVData?.Language}.pdf", "_blank");
+            await JsRuntime.InvokeAsync<object>("open", $"https://{currentBaseUri}/pdfs/{CurriculumDataProvider.SelectedCurriculumData?.Language}.pdf", "_blank");
         }
         catch (Exception ex)
         {
@@ -91,9 +91,9 @@ else
     {
         Localization.LocalizationChanged += async () =>
         {
-            if (CurriculumDataProvider.SelectedCVData != null)
+            if (CurriculumDataProvider.SelectedCurriculumData != null)
             {
-                await LocalStorage.SetItemAsync("language", CurriculumDataProvider.SelectedCVData.Language);
+                await LocalStorage.SetItemAsync("language", CurriculumDataProvider.SelectedCurriculumData.Language);
             }
 
             await InvokeAsync(StateHasChanged);

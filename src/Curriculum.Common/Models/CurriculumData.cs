@@ -2,7 +2,7 @@
 
 namespace Curriculum.Common.Models;
 
-public class CVData
+public class CurriculumData
 {
     public required string Introduction { get; set; }
 

@@ -2,9 +2,9 @@
 @inject ICurriculumDataProvider CurriculumDataProvider
 @inject ILocalizationProvider Localization
 
-@if (CurriculumDataProvider.SelectedCVData != null)
+@if (CurriculumDataProvider.SelectedCurriculumData != null)
 {
-    @foreach (var exp in CurriculumDataProvider.SelectedCVData.Experiences)
+    @foreach (var exp in CurriculumDataProvider.SelectedCurriculumData.Experiences)
     {
         <Collapsable Class="mb-4" Title="@exp.Title">
             <TitleContent>

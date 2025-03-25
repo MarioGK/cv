@@ -1,34 +1,23 @@
+using Curriculum.Common.Services;
 using Microsoft.Extensions.Logging;
 using YamlDotNet.Core;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
-namespace Curriculum.Common.Services;
+namespace Curriculum.Common.Implementations;
 
 /// <summary>
 /// Service responsible for YAML serialization and deserialization with enhanced reliability and logging
 /// </summary>
-public class YamlSerializerService : IYamlSerializerService
+public class YamlSerializer(ILogger<YamlSerializer> logger) : IYamlSerializer
 {
-    private readonly ILogger<YamlSerializerService> _logger;
-    private readonly IDeserializer _deserializer;
-    private readonly ISerializer _serializer;
-
-    public YamlSerializerService(ILogger<YamlSerializerService> logger)
-    {
-        _logger = logger;
-        
-        // Configure deserializer with defensive options
-        _deserializer = new DeserializerBuilder()
-            .WithNamingConvention(PascalCaseNamingConvention.Instance)
-            .IgnoreUnmatchedProperties()
-            .Build();
-            
-        // Configure serializer
-        _serializer = new SerializerBuilder()
-            .WithNamingConvention(PascalCaseNamingConvention.Instance)
-            .Build();
-    }
+    private readonly IDeserializer _deserializer = new DeserializerBuilder()
+                                                  .WithNamingConvention(PascalCaseNamingConvention.Instance)
+                                                  .IgnoreUnmatchedProperties()
+                                                  .Build();
+    private readonly ISerializer _serializer = new SerializerBuilder()
+                                              .WithNamingConvention(PascalCaseNamingConvention.Instance)
+                                              .Build();
 
     /// <summary>
     /// Deserialize a YAML string to the specified type with error handling and logging
@@ -40,18 +29,18 @@ public class YamlSerializerService : IYamlSerializerService
     {
         try
         {
-            _logger.LogDebug("Deserializing YAML content to type {Type}", typeof(T).Name);
+            logger.LogDebug("Deserializing YAML content to type {Type}", typeof(T).Name);
             return _deserializer.Deserialize<T>(yaml);
         }
         catch (YamlException ex)
         {
-            _logger.LogError(ex, "Failed to deserialize YAML content to type {Type}: {Message}", 
+            logger.LogError(ex, "Failed to deserialize YAML content to type {Type}: {Message}", 
                 typeof(T).Name, ex.Message);
             throw new YamlSerializationException($"Failed to deserialize YAML content to type {typeof(T).Name}", ex);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Unexpected error deserializing YAML content to type {Type}: {Message}", 
+            logger.LogError(ex, "Unexpected error deserializing YAML content to type {Type}: {Message}", 
                 typeof(T).Name, ex.Message);
             throw new YamlSerializationException($"Unexpected error deserializing YAML to type {typeof(T).Name}", ex);
         }
@@ -67,12 +56,12 @@ public class YamlSerializerService : IYamlSerializerService
     {
         try
         {
-            _logger.LogDebug("Serializing object of type {Type} to YAML", typeof(T).Name);
+            logger.LogDebug("Serializing object of type {Type} to YAML", typeof(T).Name);
             return _serializer.Serialize(obj);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Failed to serialize object of type {Type} to YAML: {Message}", 
+            logger.LogError(ex, "Failed to serialize object of type {Type} to YAML: {Message}", 
                 typeof(T).Name, ex.Message);
             throw new YamlSerializationException($"Failed to serialize object of type {typeof(T).Name} to YAML", ex);
         }

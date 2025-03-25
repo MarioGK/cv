@@ -4,7 +4,7 @@ using Curriculum.Common.Models;
 using Curriculum.Common.Services;
 using Microsoft.Extensions.Logging;
 
-namespace Curriculum.Common;
+namespace Curriculum.Common.Implementations;
 
 public class LocalCurriculumDataProvider : BaseCurriculumDataProvider, ICurriculumDataProvider
 {
@@ -12,7 +12,7 @@ public class LocalCurriculumDataProvider : BaseCurriculumDataProvider, ICurricul
 
     public LocalCurriculumDataProvider(
         ILocalizationProvider localizationProvider,
-        IYamlSerializerService yamlSerializer,
+        IYamlSerializer yamlSerializer,
         ILogger<LocalCurriculumDataProvider> logger) 
         : base(localizationProvider, yamlSerializer, logger)
     {

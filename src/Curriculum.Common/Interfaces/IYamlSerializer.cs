@@ -3,7 +3,7 @@ namespace Curriculum.Common.Services;
 /// <summary>
 /// Interface for YAML serialization and deserialization services
 /// </summary>
-public interface IYamlSerializerService
+public interface IYamlSerializer
 {
     /// <summary>
     /// Deserialize a YAML string to the specified type
