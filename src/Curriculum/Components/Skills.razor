@@ -1,0 +1,33 @@
+﻿@using Curriculum.Common.Interfaces
+@inject ICurriculumDataProvider CurriculumDataProvider
+@inject ILocalizationProvider Localization
+
+<Collapsable Class="mt-4" Title="@Localization.Get("Skills")" Icon="@Icons.Material.Outlined.Bolt">
+    <div class="pa-2">
+        @foreach (var skill in CurriculumDataProvider.SkillsData)
+        {
+            <MudGrid>
+                <MudItem xs="5">
+                    <MudText>@skill.Name</MudText>
+                </MudItem>
+                <MudItem xs="7">
+                    <MudProgressLinear
+                        Value="@skill.Level"
+                        Color="Color.Primary"
+                        Max="10"
+                        Min="1"
+                        Rounded="true"
+                        Style="height: 20px"/>
+                </MudItem>
+            </MudGrid>
+        }
+    </div>
+</Collapsable>
+
+@code {
+    protected override Task OnInitializedAsync()
+    {
+        Localization.LocalizationChanged += async () => { await InvokeAsync(StateHasChanged); };
+        return Task.CompletedTask;
+    }
+}

@@ -1,0 +1,32 @@
+﻿@using Curriculum.Common.Interfaces
+@inject ICurriculumDataProvider CurriculumDataProvider
+@inject ILocalizationProvider Localization
+
+<Collapsable Title="@Localization.Get("PersonalInfo")" Icon="@Icons.Material.Outlined.Person">
+    <div class="pa-2">
+        @if (CurriculumDataProvider.SelectedPersonalInfo != null)
+        {
+            foreach (var personalInfo in CurriculumDataProvider.SelectedPersonalInfo)
+            {
+                <MudGrid>
+                    <MudItem xs="6">
+                        <MudText>@Localization.Get(personalInfo.Key):</MudText>
+                    </MudItem>
+                    <MudItem xs="6">
+                        <MudText>@personalInfo.Value</MudText>
+                    </MudItem>
+                </MudGrid>
+            }
+        }
+    </div>
+</Collapsable>
+
+@code {
+
+    protected override Task OnInitializedAsync()
+    {
+        Localization.LocalizationChanged += async () => { await InvokeAsync(StateHasChanged); };
+        return Task.CompletedTask;
+    }
+
+}

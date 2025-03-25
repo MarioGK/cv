@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+    <PropertyGroup>
+        <BlazorEnableCompression>true</BlazorEnableCompression>
+        <InvariantGlobalization>true</InvariantGlobalization>
+        <BlazorEnableTimeZoneSupport>false</BlazorEnableTimeZoneSupport>
+        <BlazorWebAssemblyPreserveCollationData>false</BlazorWebAssemblyPreserveCollationData>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Blazor.Flags" Version="1.0.0.1"/>
+        <PackageReference Include="Blazored.LocalStorage" Version="4.5.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.3"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.0.3" PrivateAssets="all"/>
+        <PackageReference Include="MudBlazor" Version="8.4.0"/>
+        <PackageReference Include="MudBlazor.Markdown" Version="8.0.0"/>
+        <PackageReference Include="ZLogger" Version="2.5.10"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Curriculum.Common\Curriculum.Common.csproj" />
+    </ItemGroup>
+</Project>

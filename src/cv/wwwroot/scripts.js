@@ -1,3 +1,0 @@
-﻿function invokeStart() {
-    Blazor.start();
-}

@@ -1,0 +1,129 @@
+﻿@using Blazored.LocalStorage
+@using Curriculum.Common.Enums
+@using Curriculum.Common.Interfaces
+@inherits LayoutComponentBase
+@inject ILocalizationProvider Localization
+@inject ICurriculumDataProvider CurriculumDataProvider
+@inject ILocalStorageService LocalStorage
+@inject IJSRuntime JsRuntime
+@inject ILogger<MainLayout> Logger
+@inject NavigationManager NavigationManager
+
+<MudThemeProvider IsDarkMode="_darkMode"/>
+<MudDialogProvider/>
+<MudSnackbarProvider/>
+
+@if (_loaded)
+{
+    <MudLayout>
+        <MudAppBar Elevation="2">
+            <MudButton Color="Color.Inherit" Href="/">
+                @Localization.Get("Curriculum")
+            </MudButton>
+
+            @*<MudButton Color="Color.Inherit" Href="/Blog">
+                @Localization.Get("Blog")
+            </MudButton>*@
+
+            @*<MudButton Color="Color.Inherit" Href="/Resume">
+                @Localization.Get("Resume")
+            </MudButton>
+            <MudButton Color="Color.Inherit" Href="/Contacts">
+                @Localization.Get("Contacts")
+            </MudButton>*@
+
+            <MudSpacer/>
+
+            <MudIconButton Class="pa-0 mt-2"
+                           OnClick='async () => await Localization.ChangeLanguage(Language.Portugues)'>
+                <CountryFlag Country="Country.BR" Size="FlagSize.Normal"/>
+            </MudIconButton>
+
+            <MudIconButton Class="pa-0 mt-2" OnClick="async () => await Localization.ChangeLanguage()">
+                <CountryFlag Country="Country.US" Size="FlagSize.Normal"/>
+            </MudIconButton>
+            <MudDivider Vertical="true" FlexItem="true" Class="my-2"/>
+            <MudIconButton Icon="@(_darkMode ? Icons.Material.Filled.LightMode : Icons.Material.Filled.DarkMode)"
+                           OnClick="ToggleMode"
+                           Color="Color.Inherit"/>
+            <MudIconButton Icon="@Icons.Material.Filled.Print" Color="Color.Inherit" OnClick="Print"/>
+        </MudAppBar>
+        <MudMainContent>
+            <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge" Class="d-flex">
+                <MudPaper Elevation="6" Class="mx-auto my-4" Style="width: 100vw; border-radius: 10px">
+                    <div class="printable">
+                        @Body
+                    </div>
+                </MudPaper>
+            </MudContainer>
+        </MudMainContent>
+    </MudLayout>
+}
+else
+{
+    <Loading/>
+}
+
+@code {
+    bool _darkMode = true;
+    bool _loaded;
+
+    async Task ToggleMode()
+    {
+        _darkMode = !_darkMode;
+        await LocalStorage.SetItemAsync("darkMode", _darkMode);
+    }
+
+    async Task Print()
+    {
+        try
+        {
+            var currentBaseUri = NavigationManager.BaseUri;
+            await JsRuntime.InvokeAsync<object>("open", $"https://{currentBaseUri}/pdfs/{CurriculumDataProvider.SelectedCVData?.Language}.pdf", "_blank");
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Error opening print dialog");
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Localization.LocalizationChanged += async () =>
+        {
+            if (CurriculumDataProvider.SelectedCVData != null)
+            {
+                await LocalStorage.SetItemAsync("language", CurriculumDataProvider.SelectedCVData.Language);
+            }
+
+            await InvokeAsync(StateHasChanged);
+            StateHasChanged();
+            _loaded = true;
+        };
+
+        if (await LocalStorage.ContainKeyAsync("darkMode"))
+        {
+            _darkMode = await LocalStorage.GetItemAsync<bool>("darkMode");
+        }
+
+        if (await LocalStorage.ContainKeyAsync("language"))
+        {
+            try
+            {
+                var language = await LocalStorage.GetItemAsync<Language>("language");
+                await Localization.ChangeLanguage(language);
+            }
+            catch (Exception)
+            {
+                await Localization.ChangeLanguage();
+            }
+        }
+        else
+        {
+            await Localization.ChangeLanguage();
+        }
+
+        _loaded = true;
+    }
+
+}

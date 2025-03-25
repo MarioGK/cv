@@ -1,0 +1,56 @@
+﻿.mud-expand-panel-header {
+    background-color: #594ae2ff;
+}
+
+.collapsable-header {
+    background-color: #594ae2ff;
+}
+
+.mud-expand-panel-icon {
+    color: #ecebf7;
+}
+
+.experience-text {
+    white-space: pre-line;
+}
+
+.text-color {
+    color: #ecebf7;
+}
+
+.loading-progress {
+    width: 8rem;
+    height: 8rem;
+    margin: 0 auto;
+    border-radius: 50%;
+    background-color: transparent;
+}
+
+.loading-progress circle {
+    fill: none;
+    stroke: #594ae2;
+    stroke-width: 0.6rem;
+    transform-origin: 50% 50%;
+    transform: rotate(-90deg);
+}
+
+.loading-progress circle:last-child {
+    stroke: #ecebf7;
+    stroke-dasharray: calc(3.141 * 80%);
+    stroke-dashoffset: calc(3.141 * 80% * (1 - var(--blazor-load-percentage, 0%) / 100%));
+    transition: stroke-dashoffset 0.05s ease-in-out;
+}
+
+.loading-progress-text {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    color: #ecebf7;
+    position: relative;
+    margin: 0.5rem 0 0 0;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.loading-progress-text:after {
+    content: var(--blazor-load-percentage-text, "Loading");
+}
