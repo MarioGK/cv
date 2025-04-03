@@ -8,6 +8,7 @@ using QuestPDF.Drawing;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
+using Microsoft.Extensions.Logging;
 
 QuestPDF.Settings.License = LicenseType.Community;
 
@@ -23,8 +24,17 @@ var profileImage = Path.Combine(AppContext.BaseDirectory, "Data", "Images", "Pro
 // Create the localization provider first
 var localizationProvider = new LocalFileLocalizationProvider();
 
+// Configure logging
+var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
+
+// Set the logger for YamlSerializer
+YamlSerializer.SetLogger(loggerFactory.CreateLogger("YamlSerializer"));
+
+// Create a logger for the data provider
+var logger = loggerFactory.CreateLogger<LocalCurriculumDataProvider>();
+
 // Then create CV data provider that uses the localization provider
-var cvDataProvider = new LocalCurriculumDataProvider(localizationProvider);
+var cvDataProvider = new LocalCurriculumDataProvider(localizationProvider, logger);
 
 var languages = Enum.GetValues(typeof(Language)).Cast<Language>();
 

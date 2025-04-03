@@ -1,5 +1,5 @@
-using Curriculum.Common.Services;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using YamlDotNet.Core;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
@@ -7,61 +7,73 @@ using YamlDotNet.Serialization.NamingConventions;
 namespace Curriculum.Common.Implementations;
 
 /// <summary>
-/// Service responsible for YAML serialization and deserialization with enhanced reliability and logging
+/// Static class responsible for YAML serialization and deserialization with enhanced reliability
 /// </summary>
-public class YamlSerializer(ILogger<YamlSerializer> logger) : IYamlSerializer
+public static class YamlSerializer
 {
-    private readonly IDeserializer _deserializer = new DeserializerBuilder()
-                                                  .WithNamingConvention(PascalCaseNamingConvention.Instance)
-                                                  .IgnoreUnmatchedProperties()
-                                                  .Build();
-    private readonly ISerializer _serializer = new SerializerBuilder()
+    private static readonly IDeserializer _deserializer = new DeserializerBuilder()
                                               .WithNamingConvention(PascalCaseNamingConvention.Instance)
+                                              .IgnoreUnmatchedProperties()
                                               .Build();
+    private static readonly ISerializer _serializer = new SerializerBuilder()
+                                          .WithNamingConvention(PascalCaseNamingConvention.Instance)
+                                          .Build();
+    
+    // Optional logger instance that can be set for logging
+    private static ILogger _logger = NullLogger.Instance;
+    
+    /// <summary>
+    /// Sets a logger for YamlSerializer operations
+    /// </summary>
+    /// <param name="logger">The logger to use</param>
+    public static void SetLogger(ILogger logger)
+    {
+        _logger = logger ?? NullLogger.Instance;
+    }
 
     /// <summary>
-    /// Deserialize a YAML string to the specified type with error handling and logging
+    /// Deserialize a YAML string to the specified type with error handling
     /// </summary>
     /// <typeparam name="T">The type to deserialize to</typeparam>
     /// <param name="yaml">The YAML string to deserialize</param>
-    /// <returns>The deserialized object or default(T) if deserialization fails</returns>
-    public T Deserialize<T>(string yaml)
+    /// <returns>The deserialized object</returns>
+    public static T Deserialize<T>(string yaml)
     {
         try
         {
-            logger.LogDebug("Deserializing YAML content to type {Type}", typeof(T).Name);
+            _logger.LogDebug("Deserializing YAML content to type {Type}", typeof(T).Name);
             return _deserializer.Deserialize<T>(yaml);
         }
         catch (YamlException ex)
         {
-            logger.LogError(ex, "Failed to deserialize YAML content to type {Type}: {Message}", 
+            _logger.LogError(ex, "Failed to deserialize YAML content to type {Type}: {Message}", 
                 typeof(T).Name, ex.Message);
             throw new YamlSerializationException($"Failed to deserialize YAML content to type {typeof(T).Name}", ex);
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "Unexpected error deserializing YAML content to type {Type}: {Message}", 
+            _logger.LogError(ex, "Unexpected error deserializing YAML content to type {Type}: {Message}", 
                 typeof(T).Name, ex.Message);
             throw new YamlSerializationException($"Unexpected error deserializing YAML to type {typeof(T).Name}", ex);
         }
     }
 
     /// <summary>
-    /// Serialize an object to YAML string with error handling and logging
+    /// Serialize an object to YAML string with error handling
     /// </summary>
     /// <typeparam name="T">The type to serialize</typeparam>
     /// <param name="obj">The object to serialize</param>
     /// <returns>The serialized YAML string</returns>
-    public string Serialize<T>(T obj)
+    public static string Serialize<T>(T obj)
     {
         try
         {
-            logger.LogDebug("Serializing object of type {Type} to YAML", typeof(T).Name);
+            _logger.LogDebug("Serializing object of type {Type} to YAML", typeof(T).Name);
             return _serializer.Serialize(obj);
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "Failed to serialize object of type {Type} to YAML: {Message}", 
+            _logger.LogError(ex, "Failed to serialize object of type {Type} to YAML: {Message}", 
                 typeof(T).Name, ex.Message);
             throw new YamlSerializationException($"Failed to serialize object of type {typeof(T).Name} to YAML", ex);
         }

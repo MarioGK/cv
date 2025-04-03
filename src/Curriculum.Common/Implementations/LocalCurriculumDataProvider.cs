@@ -1,7 +1,6 @@
 ﻿using Curriculum.Common.Base;
 using Curriculum.Common.Interfaces;
 using Curriculum.Common.Models;
-using Curriculum.Common.Services;
 using Microsoft.Extensions.Logging;
 
 namespace Curriculum.Common.Implementations;
@@ -12,9 +11,8 @@ public class LocalCurriculumDataProvider : BaseCurriculumDataProvider, ICurricul
 
     public LocalCurriculumDataProvider(
         ILocalizationProvider localizationProvider,
-        IYamlSerializer yamlSerializer,
         ILogger<LocalCurriculumDataProvider> logger) 
-        : base(localizationProvider, yamlSerializer, logger)
+        : base(localizationProvider, logger)
     {
         _logger.LogInformation("Initializing LocalCVCVDataProvider from {DataDir}", _dataDir);
         
@@ -23,12 +21,12 @@ public class LocalCurriculumDataProvider : BaseCurriculumDataProvider, ICurricul
             var skillsPath = Path.Combine(_dataDir, "Skills.yaml");
             _logger.LogDebug("Loading skills from {Path}", skillsPath);
             var skillsContent = File.ReadAllText(skillsPath);
-            SkillsData = _yamlSerializer.Deserialize<List<SkillData>>(skillsContent);
+            SkillsData = YamlSerializer.Deserialize<List<SkillData>>(skillsContent);
             
             var languagesPath = Path.Combine(_dataDir, "Languages.yaml");
             _logger.LogDebug("Loading languages from {Path}", languagesPath);
             var languageContent = File.ReadAllText(languagesPath);
-            LanguageData = _yamlSerializer.Deserialize<List<SkillData>>(languageContent);
+            LanguageData = YamlSerializer.Deserialize<List<SkillData>>(languageContent);
             
             _logger.LogInformation("Loaded {SkillCount} skills and {LanguageCount} languages", 
                 SkillsData.Count, LanguageData.Count);
@@ -48,7 +46,7 @@ public class LocalCurriculumDataProvider : BaseCurriculumDataProvider, ICurricul
         try
         {
             var content = await File.ReadAllTextAsync(fullPath);
-            var data = _yamlSerializer.Deserialize<T>(content);
+            var data = YamlSerializer.Deserialize<T>(content);
             return data;
         }
         catch (Exception ex)

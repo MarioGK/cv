@@ -1,4 +1,5 @@
 ﻿using Curriculum.Common.Base;
+using Curriculum.Common.Implementations;
 using Curriculum.Common.Interfaces;
 using Curriculum.Common.Models;
 
@@ -16,7 +17,7 @@ public class WebCurriculumDataProvider : BaseCurriculumDataProvider, ICurriculum
     public override async Task<T> GetFromYamlAsync<T>(string url)
     {
         var data = await _httpClient.GetStringAsync(url);
-        return YamlDeserializer.Deserialize<T>(data);
+        return YamlSerializer.Deserialize<T>(data);
     }
 
     public async Task LoadStaticData()

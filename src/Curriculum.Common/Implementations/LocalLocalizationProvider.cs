@@ -12,7 +12,7 @@ public class LocalLocalizationProvider : ILocalizationProvider
     public Dictionary<Language, LocalizationData> LocalizationData { get; set; } = new();
     public Dictionary<Language, Dictionary<string, string>> PersonalData { get; set; } = new();
 
-    public virtual async Task ChangeLanguage(Language language = Language.English)
+    public virtual Task ChangeLanguage(Language language = Language.English)
     {
         // Implementation would need to load data from somewhere
         throw new NotImplementedException("This base implementation does not provide data loading functionality");
