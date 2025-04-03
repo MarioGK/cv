@@ -1,10 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
-
     <PropertyGroup>
         <BlazorEnableCompression>true</BlazorEnableCompression>
         <InvariantGlobalization>true</InvariantGlobalization>
         <BlazorEnableTimeZoneSupport>false</BlazorEnableTimeZoneSupport>
         <BlazorWebAssemblyPreserveCollationData>false</BlazorWebAssemblyPreserveCollationData>
+        <RootNamespace>Curriculum</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

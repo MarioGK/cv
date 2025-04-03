@@ -1,5 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
     <PropertyGroup>
         <OutputType>Exe</OutputType>
     </PropertyGroup>
@@ -11,85 +10,16 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\Curriculum.Common\Curriculum.Common.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
         <None Update="Fonts\*">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Include="..\Curriculum\wwwroot\Data\Blog\WIP.md">
-          <Link>Data\Blog\WIP.md</Link>
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Include="..\Curriculum\wwwroot\Data\CVs\Developer\English.yaml">
-          <Link>Data\CVs\Developer\English.yaml</Link>
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Include="..\Curriculum\wwwroot\Data\CVs\Developer\Portugues.yaml">
-          <Link>Data\CVs\Developer\Portugues.yaml</Link>
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Include="..\Curriculum\wwwroot\Data\CVs\DevOps\English.yaml">
-          <Link>Data\CVs\DevOps\English.yaml</Link>
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Include="..\Curriculum\wwwroot\Data\CVs\DevOps\Portugues.yaml">
-          <Link>Data\CVs\DevOps\Portugues.yaml</Link>
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Include="..\Curriculum\wwwroot\Data\Images\Profile.jpg">
-          <Link>Data\Images\Profile.jpg</Link>
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Include="..\Curriculum\wwwroot\Data\Images\Projects\HospitalManager\1.png">
-          <Link>Data\Images\Projects\HospitalManager\1.png</Link>
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Include="..\Curriculum\wwwroot\Data\Images\Projects\HospitalManager\2.png">
-          <Link>Data\Images\Projects\HospitalManager\2.png</Link>
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Include="..\Curriculum\wwwroot\Data\Images\Projects\HospitalManager\3.png">
-          <Link>Data\Images\Projects\HospitalManager\3.png</Link>
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Include="..\Curriculum\wwwroot\Data\Images\Projects\HospitalManager\4.png">
-          <Link>Data\Images\Projects\HospitalManager\4.png</Link>
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Include="..\Curriculum\wwwroot\Data\Images\Projects\HospitalManager\5.png">
-          <Link>Data\Images\Projects\HospitalManager\5.png</Link>
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Include="..\Curriculum\wwwroot\Data\Languages.yaml">
-          <Link>Data\Languages.yaml</Link>
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Include="..\Curriculum\wwwroot\Data\Localizations\English.yaml">
-          <Link>Data\Localizations\English.yaml</Link>
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Include="..\Curriculum\wwwroot\Data\Localizations\Portugues.yaml">
-          <Link>Data\Localizations\Portugues.yaml</Link>
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Include="..\Curriculum\wwwroot\Data\PersonalInfo\English.yaml">
-          <Link>Data\PersonalInfo\English.yaml</Link>
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Include="..\Curriculum\wwwroot\Data\PersonalInfo\Portugues.yaml">
-          <Link>Data\PersonalInfo\Portugues.yaml</Link>
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-        <None Include="..\Curriculum\wwwroot\Data\Skills.yaml">
-          <Link>Data\Skills.yaml</Link>
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
         <None Include="..\cv\wwwroot\Data\**\*">
             <Link>Data\%(RecursiveDir)/%(FileName)%(Extension)</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
     </ItemGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\Curriculum.Common\Curriculum.Common.csproj" />
-    </ItemGroup>
-
 </Project>
